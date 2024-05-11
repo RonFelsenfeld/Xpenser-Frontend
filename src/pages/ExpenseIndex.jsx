@@ -5,7 +5,6 @@ import { ExpenseList } from '../components/expense/ExpenseList'
 
 export function ExpenseIndex() {
   const [expenses, setExpenses] = useState([])
-  console.log(expenses)
 
   useEffect(() => {
     loadExpenses()
@@ -26,7 +25,24 @@ export function ExpenseIndex() {
       setExpenses(prevExpenses => prevExpenses.filter(e => e._id !== expenseId))
       // todo - show user msg
     } catch (err) {
-      console.log('Had issues with removing expenses:', err)
+      console.log('Had issues with removing expense:', err)
+    }
+  }
+
+  async function onAddExpense() {
+    const txt = prompt('Expense txt')
+    const amount = +prompt('Expense amount')
+
+    const newExpense = expenseService.getEmptyExpense()
+    newExpense.txt = txt
+    newExpense.amount = amount
+    newExpense.at = Date.now()
+
+    try {
+      const savedExpense = await expenseService.save(newExpense)
+      setExpenses(prevExpenses => [...prevExpenses, savedExpense])
+    } catch (err) {
+      console.log('Had issues with saving expense:', err)
     }
   }
 
@@ -34,6 +50,9 @@ export function ExpenseIndex() {
   return (
     <section className="expense-index">
       <h1 className="index-heading">Expense Index</h1>
+      <button className="btn-add-expense" onClick={onAddExpense}>
+        Add expense
+      </button>
 
       {expenses.length ? (
         <ExpenseList expenses={expenses} onRemoveExpense={onRemoveExpense} />
