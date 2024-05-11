@@ -49,7 +49,6 @@ export function ExpenseIndex() {
   if (!expenses.length) return <div>Loading...</div>
   return (
     <section className="expense-index">
-      <h1 className="index-heading">Expense Index</h1>
       <button className="btn-add-expense" onClick={onAddExpense}>
         Add expense
       </button>

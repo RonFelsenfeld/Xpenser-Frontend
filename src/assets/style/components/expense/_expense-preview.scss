@@ -1,23 +1,32 @@
 .expense-preview {
+  padding: em(8px) em(16px);
+  border-radius: 2em;
+  margin-inline: em(10px);
+
+  background-color: lightblue;
+  transition: transform 0.3s;
+
   &:hover {
+    transform: translateX(10px);
+
     .actions-container {
       transform: translateX(0);
       opacity: 1;
     }
   }
+
   .expense-txt {
-    font-size: 1.6em;
+    font-size: em(18px);
+
     .expense-amount {
-      // BOLD
+      font-family: FigtreeBold;
     }
   }
 
   .actions-container {
     gap: 1em;
-    margin-inline-end: 1.5em;
 
     opacity: 0;
-    transform: translateX(20px);
     transition: all 0.4s;
 
     .btn {
@@ -25,15 +34,18 @@
       width: 32px;
 
       height: 32px;
-      font-size: 1.4em;
+      font-size: em(14px);
 
       &::after {
         font-family: faSolid;
-        font-style: 1rem;
       }
 
       &.btn-edit {
         background-color: $btn-edit-clr;
+
+        &:hover {
+          background-color: darken($btn-edit-clr, 15%);
+        }
 
         &::after {
           content: '\f044';
@@ -42,6 +54,10 @@
 
       &.btn-delete {
         background-color: $btn-delete-clr;
+
+        &:hover {
+          background-color: darken($btn-delete-clr, 15%);
+        }
 
         &::after {
           content: '\f1f8';
