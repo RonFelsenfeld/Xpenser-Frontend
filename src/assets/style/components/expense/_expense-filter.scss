@@ -1,0 +1,30 @@
+.expense-filter {
+  .filter-fieldset {
+    border: 2px solid $main-theme-clr;
+    border-radius: $el-br;
+    margin-block-end: em(20px);
+
+    legend {
+      font-size: em(22px);
+      font-family: FigtreeMedium;
+    }
+
+    .filter-container {
+      gap: em(20px);
+
+      .input-container {
+        gap: em(5px);
+
+        label {
+          font-family: FigtreeMedium;
+          font-size: em(16px);
+        }
+
+        input,
+        select {
+          padding-block: em(4px);
+        }
+      }
+    }
+  }
+}

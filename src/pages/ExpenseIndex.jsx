@@ -3,17 +3,19 @@ import { Link, Outlet } from 'react-router-dom'
 
 import { expenseService } from '../services/expense.local.service'
 import { ExpenseList } from '../components/expense/ExpenseList'
+import { ExpenseFilter } from '../components/expense/ExpenseFilter'
 
 export function ExpenseIndex() {
   const [expenses, setExpenses] = useState([])
+  const [filterBy, setFilterBy] = useState(expenseService.getDefaultFilterBy())
 
   useEffect(() => {
-    loadExpenses()
-  }, [])
+    loadExpenses(filterBy)
+  }, [filterBy])
 
-  async function loadExpenses() {
+  async function loadExpenses(filterBy) {
     try {
-      const expenses = await expenseService.query()
+      const expenses = await expenseService.query(filterBy)
       setExpenses(expenses)
     } catch (err) {
       console.log('Had issues with loading expenses:', err)
@@ -30,30 +32,15 @@ export function ExpenseIndex() {
     }
   }
 
-  // async function onAddExpense() {
-  //   const txt = prompt('Expense txt')
-  //   const amount = +prompt('Expense amount')
-
-  //   const newExpense = expenseService.getEmptyExpense()
-  //   newExpense.txt = txt
-  //   newExpense.amount = amount
-  //   newExpense.at = Date.now()
-
-  //   try {
-  //     const savedExpense = await expenseService.save(newExpense)
-  //     setExpenses(prevExpenses => [...prevExpenses, savedExpense])
-  //   } catch (err) {
-  //     console.log('Had issues with saving expense:', err)
-  //   }
-  // }
-
   // todo - loader
   if (!expenses.length) return <div className="loading-msg">Loading...</div>
   return (
     <section className="expense-index">
       <Link to="/expense/edit">
-        <button className="btn-add-expense">Add expense</button>
+        <button className="btn-add-expense flex align-center justify-center"></button>
       </Link>
+
+      <ExpenseFilter filterBy={filterBy} setFilterBy={setFilterBy} />
 
       {expenses.length ? (
         <ExpenseList expenses={expenses} onRemoveExpense={onRemoveExpense} />

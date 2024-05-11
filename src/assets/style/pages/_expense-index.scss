@@ -1,8 +1,19 @@
 .expense-index {
   background-color: $main-bg-clr;
+  padding: em(8px) em(16px);
 
   .btn-add-expense {
     @include scalableBtn;
+    @include btnTheme(14px, 14px);
+
+    border-radius: $el-br;
+    margin-block-end: em(10px);
+    font-size: 1.6em;
+
+    &::after {
+      font-family: faSolid;
+      content: '\2b';
+    }
   }
 }
 

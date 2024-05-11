@@ -11,11 +11,19 @@ export const expenseService = {
   save,
   getEmptyExpense,
   getExpenseCategories,
+  getDefaultFilterBy,
 }
 
-async function query() {
+async function query(filterBy = {}) {
   try {
-    const expenses = await storageService.query(EXPENSE_KEY)
+    let expenses = await storageService.query(EXPENSE_KEY)
+
+    // ! Checking for filter criteria
+    const filterByValues = Object.values(filterBy)
+    if (filterByValues.some(val => val)) {
+      expenses = _filterExpenses(expenses, filterBy)
+    }
+
     return expenses
   } catch (err) {
     console.log('Query -> Had issues querying expenses', err)
@@ -54,6 +62,28 @@ function getEmptyExpense() {
 
 function getExpenseCategories() {
   return ['Food', 'Utilities', 'Entertainment', 'Transport', 'Savings', 'Other']
+}
+
+function getDefaultFilterBy() {
+  return { at: '', category: '' }
+}
+
+function _filterExpenses(expenses, { at, category }) {
+  let expensesToReturn = expenses.slice()
+
+  if (at) {
+    expensesToReturn = expensesToReturn.filter(
+      e => new Date(e.at).getTime() === new Date(at).getTime()
+    )
+  }
+
+  if (category) {
+    expensesToReturn = expensesToReturn.filter(e => e.category === category)
+  }
+
+  console.log(expensesToReturn)
+
+  return expensesToReturn
 }
 
 ////////////////////////////////////////////////////

@@ -1,9 +1,7 @@
 .expense-preview {
-  padding: em(8px) em(16px);
   border-radius: 2em;
-  margin-inline: em(10px);
+  border: 1px solid black;
 
-  background-color: lightblue;
   transition: transform 0.3s;
 
   &:hover {

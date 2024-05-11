@@ -7,6 +7,9 @@ export function ExpensePreview({ expense, onRemoveExpense }) {
         {expense.txt} - <span className="expense-amount">{expense.amount}</span>
       </p>
 
+      <p>{expense.category}</p>
+      <p>{expense.at}</p>
+
       <div className="actions-container flex align-center">
         <Link to={`/expense/edit/${expense._id}`}>
           <button

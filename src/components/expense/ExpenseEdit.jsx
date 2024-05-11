@@ -6,7 +6,6 @@ import { expenseService } from '../../services/expense.local.service'
 export function ExpenseEdit() {
   const [expenseToEdit, setExpenseToEdit] = useState(expenseService.getEmptyExpense())
   const txtInputRef = useRef()
-  console.log(expenseToEdit)
 
   const [setExpenses] = useOutletContext()
   const navigate = useNavigate()
@@ -64,8 +63,8 @@ export function ExpenseEdit() {
     }
   }
 
-  function validateExpenseDetails() {
-    return !expenseToEdit.txt || !expenseToEdit.amount || expenseToEdit.amount < 0
+  function isFormValid() {
+    return expenseToEdit.txt && expenseToEdit.amount && expenseToEdit.amount > 0
   }
 
   function getActiveCategoryClass(category) {
@@ -151,11 +150,7 @@ export function ExpenseEdit() {
             ))}
           </div>
 
-          <button
-            className="btn-submit"
-            onClick={onSaveExpense}
-            disabled={validateExpenseDetails()}
-          >
+          <button className="btn-submit" onClick={onSaveExpense} disabled={!isFormValid()}>
             Save
           </button>
         </form>
