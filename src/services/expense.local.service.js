@@ -46,14 +46,14 @@ function getEmptyExpense() {
   return {
     txt: '',
     amount: 0,
-    category: null,
-    at: null,
+    category: '',
+    at: '',
     notes: '',
   }
 }
 
 function getExpenseCategories() {
-  return ['Food', 'Transport', 'Entertainment', 'Utilities', 'Savings', 'Other']
+  return ['Food', 'Utilities', 'Entertainment', 'Transport', 'Savings', 'Other']
 }
 
 ////////////////////////////////////////////////////

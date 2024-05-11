@@ -6,6 +6,7 @@ import { expenseService } from '../../services/expense.local.service'
 export function ExpenseEdit() {
   const [expenseToEdit, setExpenseToEdit] = useState(expenseService.getEmptyExpense())
   const txtInputRef = useRef()
+  console.log(expenseToEdit)
 
   const [setExpenses] = useOutletContext()
   const navigate = useNavigate()
@@ -36,6 +37,15 @@ export function ExpenseEdit() {
     }))
   }
 
+  function onSelectCategory(category) {
+    category = category.toLowerCase()
+    if (category !== expenseToEdit.category) {
+      setExpenseToEdit(prevExpenseToEdit => ({ ...prevExpenseToEdit, category }))
+    } else {
+      setExpenseToEdit(prevExpenseToEdit => ({ ...prevExpenseToEdit, category: '' }))
+    }
+  }
+
   async function onSaveExpense(ev) {
     ev.preventDefault()
 
@@ -54,11 +64,16 @@ export function ExpenseEdit() {
     }
   }
 
-  function validateForm() {
-    return !expenseToEdit.txt || !expenseToEdit.amount
+  function validateExpenseDetails() {
+    return !expenseToEdit.txt || !expenseToEdit.amount || expenseToEdit.amount < 0
   }
 
-  // todo - add category and date
+  function getActiveCategoryClass(category) {
+    if (expenseToEdit.category === category.toLowerCase()) return 'active'
+    return ''
+  }
+
+  const categories = expenseService.getExpenseCategories()
   return (
     <section className="expense-edit">
       <Link to="/">
@@ -95,7 +110,52 @@ export function ExpenseEdit() {
             />
           </div>
 
-          <button className="btn-submit" onClick={onSaveExpense} disabled={validateForm()}>
+          <div className="input-container flex column">
+            <label htmlFor="at">
+              Expense date <span className="optional">(Optional)</span>
+            </label>
+            <input type="date" name="at" id="at" onChange={handleChange} value={expenseToEdit.at} />
+          </div>
+
+          <div className="input-container flex column">
+            <label htmlFor="notes">
+              Expense notes <span className="optional">(Optional)</span>
+            </label>
+
+            <input
+              type="txt"
+              name="notes"
+              id="notes"
+              onChange={handleChange}
+              value={expenseToEdit.notes}
+              placeholder="Notes"
+            />
+          </div>
+
+          <p className="category-title">
+            Select category <span className="optional">(Optional)</span>
+          </p>
+          <div className="categories-container flex">
+            {categories.map((category, idx) => (
+              <button
+                key={categories + idx}
+                title="Select category"
+                type="button"
+                className={`btn-category ${category.toLowerCase()} ${getActiveCategoryClass(
+                  category
+                )}`}
+                onClick={() => onSelectCategory(category)}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+
+          <button
+            className="btn-submit"
+            onClick={onSaveExpense}
+            disabled={validateExpenseDetails()}
+          >
             Save
           </button>
         </form>

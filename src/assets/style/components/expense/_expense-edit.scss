@@ -3,7 +3,7 @@
   top: $app-header-height;
   right: 0;
 
-  width: 400px;
+  width: 450px;
   height: 100%;
 
   background-color: $main-bg-clr;
@@ -35,6 +35,7 @@
     form {
       width: 100%;
       display: grid;
+      row-gap: em(20px);
 
       .input-container {
         gap: em(5px);
@@ -48,9 +49,61 @@
           @include overflowText;
           padding-block: em(4px);
         }
+      }
 
-        &:first-of-type {
-          margin-block-end: em(20px);
+      .optional {
+        font-family: FigtreeLight;
+        font-size: rem(20px);
+      }
+
+      .category-title {
+        font-family: FigtreeMedium;
+        font-size: em(16px);
+      }
+
+      .categories-container {
+        gap: em(10px);
+        flex-wrap: wrap;
+
+        .btn-category {
+          @include scalableBtn;
+          flex: 1 0 33%;
+
+          padding: em(8px) em(16px);
+          border-radius: $el-br;
+          font-size: em(16px);
+
+          &.active {
+            outline: 2px solid black;
+          }
+
+          &:not(.active) {
+            opacity: 0.6;
+          }
+
+          &.food {
+            background-color: $category-food-clr;
+          }
+
+          &.transport {
+            background-color: $category-transport-clr;
+          }
+
+          &.entertainment {
+            background-color: $category-entertainment-clr;
+          }
+
+          &.utilities {
+            background-color: $category-utilities-clr;
+          }
+
+          &.savings {
+            background-color: $category-savings-clr;
+          }
+
+          &.other {
+            background-color: $category-other-clr;
+          }
         }
       }
 
