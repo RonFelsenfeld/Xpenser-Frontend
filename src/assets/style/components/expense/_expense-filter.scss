@@ -2,6 +2,7 @@
   .filter-fieldset {
     border: 2px solid $main-theme-clr;
     border-radius: $el-br;
+    padding: em(10px) em(15px);
     margin-block-end: em(20px);
 
     legend {

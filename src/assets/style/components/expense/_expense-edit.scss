@@ -82,27 +82,27 @@
           }
 
           &.food {
-            background-color: $category-food-clr;
+            background-color: var(--category-food-clr);
           }
 
           &.transport {
-            background-color: $category-transport-clr;
+            background-color: var(--category-transport-clr);
           }
 
           &.entertainment {
-            background-color: $category-entertainment-clr;
+            background-color: var(--category-entertainment-clr);
           }
 
           &.utilities {
-            background-color: $category-utilities-clr;
+            background-color: var(--category-utilities-clr);
           }
 
           &.savings {
-            background-color: $category-savings-clr;
+            background-color: var(--category-savings-clr);
           }
 
           &.other {
-            background-color: $category-other-clr;
+            background-color: var(--category-other-clr);
           }
         }
       }

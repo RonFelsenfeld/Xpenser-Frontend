@@ -1,12 +1,16 @@
 .expense-preview {
-  border-radius: 2em;
-  border: 1px solid black;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: 20px 30px auto;
+  grid-template-areas:
+    'txt amount'
+    'at at'
+    'category actions';
 
-  transition: transform 0.3s;
+  padding-block-end: em(10px);
+  border-block-end: 1px solid $main-border-clr;
 
   &:hover {
-    transform: translateX(10px);
-
     .actions-container {
       transform: translateX(0);
       opacity: 1;
@@ -14,17 +18,69 @@
   }
 
   .expense-txt {
-    font-size: em(18px);
+    grid-area: txt;
+  }
 
-    .expense-amount {
-      font-family: FigtreeBold;
+  .expense-amount {
+    grid-area: amount;
+    justify-self: end;
+  }
+
+  .expense-category {
+    grid-area: category;
+    justify-self: start;
+    align-self: end;
+
+    padding: rem(10px);
+    border-radius: $el-br;
+
+    font-size: em(14px);
+  }
+
+  .expense-at {
+    font-size: em(16px);
+    grid-area: at;
+  }
+
+  .bold-detail {
+    font-size: em(20px);
+    font-family: FigtreeMedium;
+  }
+
+  .btn-no {
+    button {
+      @include scalableBtn;
+      justify-self: start;
+
+      font-size: em(12px);
+      color: $secondary-font-clr;
+
+      background-color: transparent;
+    }
+
+    &:hover {
+      color: $main-font-clr;
+    }
+
+    &.no-category {
+      grid-area: category;
+      align-self: end;
+    }
+
+    &.no-date {
+      grid-area: at;
     }
   }
 
   .actions-container {
+    grid-area: actions;
+    justify-self: end;
     gap: 1em;
 
+    margin-block-start: em(7px);
+
     opacity: 0;
+    transform: translateX(20px);
     transition: all 0.4s;
 
     .btn {
