@@ -38,7 +38,7 @@ export function ExpenseIndex() {
   if (!expenses) return <Loader />
   return (
     <section className="expense-index">
-      <div>
+      <div className="expenses-container">
         <Link to="/expense/edit">
           <button className="btn-add-expense flex align-center justify-center"></button>
         </Link>

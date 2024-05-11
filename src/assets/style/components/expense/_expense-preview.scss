@@ -50,9 +50,9 @@
   .btn-no {
     button {
       @include scalableBtn;
-      justify-self: start;
+      padding-inline: 0;
+      align-self: center;
 
-      font-size: em(12px);
       color: $secondary-font-clr;
 
       background-color: transparent;
@@ -64,7 +64,6 @@
 
     &.no-category {
       grid-area: category;
-      align-self: end;
     }
 
     &.no-date {

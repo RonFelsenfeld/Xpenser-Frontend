@@ -1,11 +1,12 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate, useOutletContext, useParams } from 'react-router-dom'
 
 import { expenseService } from '../../services/expense.local.service'
+import { Loader } from '../general/Loader'
 
 export function ExpenseEdit() {
   const [expenseToEdit, setExpenseToEdit] = useState(expenseService.getEmptyExpense())
-  const txtInputRef = useRef()
+  const [isLoading, setIsLoading] = useState(true)
 
   const [setExpenses] = useOutletContext()
   const navigate = useNavigate()
@@ -13,15 +14,21 @@ export function ExpenseEdit() {
 
   useEffect(() => {
     if (expenseId) loadExpense()
-    txtInputRef.current.focus()
-  }, [])
+    else {
+      setExpenseToEdit(expenseService.getEmptyExpense())
+      setIsLoading(false)
+    }
+  }, [expenseId])
 
   async function loadExpense() {
+    setIsLoading(true)
     try {
       const expense = await expenseService.getById(expenseId)
       setExpenseToEdit(expense)
     } catch (err) {
       console.log('Had issues with loading expense to edit:', err)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -73,88 +80,100 @@ export function ExpenseEdit() {
   }
 
   const categories = expenseService.getExpenseCategories()
+
   return (
     <section className="expense-edit">
       <Link to="/">
         <button className="btn-back"></button>
       </Link>
 
-      <div className="main-content flex column align-center">
-        <h1 className="edit-heading">{expenseId ? 'Edit' : 'Add'} Expense</h1>
+      {isLoading && <Loader />}
 
-        <form>
-          <div className="input-container flex column">
-            <label htmlFor="txt">Expense title</label>
-            <input
-              ref={txtInputRef}
-              type="text"
-              name="txt"
-              id="txt"
-              onChange={handleChange}
-              value={expenseToEdit.txt}
-              placeholder="title"
-            />
-          </div>
+      {!isLoading && (
+        <div className="main-content flex column align-center">
+          <h1 className="edit-heading">{expenseId ? 'Edit' : 'Add'} Expense</h1>
 
-          <div className="input-container flex column">
-            <label htmlFor="amount">Expense amount</label>
-            <input
-              type="number"
-              name="amount"
-              id="amount"
-              min={0.01}
-              onChange={handleChange}
-              value={expenseToEdit.amount || ''}
-              placeholder="amount"
-            />
-          </div>
+          <form>
+            <div className="input-container flex column">
+              <label htmlFor="txt">Expense title</label>
+              <input
+                type="text"
+                name="txt"
+                id="txt"
+                onChange={handleChange}
+                value={expenseToEdit.txt}
+                placeholder="title"
+                autoComplete="off"
+                autoFocus
+              />
+            </div>
 
-          <div className="input-container flex column">
-            <label htmlFor="at">
-              Expense date <span className="optional">(Optional)</span>
-            </label>
-            <input type="date" name="at" id="at" onChange={handleChange} value={expenseToEdit.at} />
-          </div>
+            <div className="input-container flex column">
+              <label htmlFor="amount">Expense amount</label>
+              <input
+                type="number"
+                name="amount"
+                id="amount"
+                min={0.01}
+                onChange={handleChange}
+                value={expenseToEdit.amount || ''}
+                placeholder="amount"
+              />
+            </div>
 
-          <div className="input-container flex column">
-            <label htmlFor="notes">
-              Expense notes <span className="optional">(Optional)</span>
-            </label>
+            <div className="input-container flex column">
+              <label htmlFor="at">
+                Expense date <span className="optional">(Optional)</span>
+              </label>
+              <input
+                type="date"
+                name="at"
+                id="at"
+                onChange={handleChange}
+                value={expenseToEdit.at}
+              />
+            </div>
 
-            <input
-              type="txt"
-              name="notes"
-              id="notes"
-              onChange={handleChange}
-              value={expenseToEdit.notes}
-              placeholder="Notes"
-            />
-          </div>
+            <div className="input-container flex column">
+              <label htmlFor="notes">
+                Expense notes <span className="optional">(Optional)</span>
+              </label>
 
-          <p className="category-title">
-            Select category <span className="optional">(Optional)</span>
-          </p>
-          <div className="categories-container flex">
-            {categories.map((category, idx) => (
-              <button
-                key={categories + idx}
-                title="Select category"
-                type="button"
-                className={`btn-category ${category.toLowerCase()} ${getActiveCategoryClass(
-                  category
-                )}`}
-                onClick={() => onSelectCategory(category)}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
+              <input
+                type="txt"
+                name="notes"
+                id="notes"
+                onChange={handleChange}
+                value={expenseToEdit.notes}
+                placeholder="Notes"
+              />
+            </div>
 
-          <button className="btn-submit" onClick={onSaveExpense} disabled={!isFormValid()}>
-            Save
-          </button>
-        </form>
-      </div>
+            <p className="category-title">
+              Select category <span className="optional">(Optional)</span>
+            </p>
+            <div className="categories-container flex">
+              {categories.map((category, idx) => (
+                <button
+                  key={categories + idx}
+                  title="Select category"
+                  type="button"
+                  className={`btn-category ${category.toLowerCase()} ${getActiveCategoryClass(
+                    category
+                  )}`}
+                  onClick={() => onSelectCategory(category)}
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+
+            <button className="btn-submit" onClick={onSaveExpense} disabled={!isFormValid()}>
+              Save
+            </button>
+          </form>
+        </div>
+      )}
     </section>
   )
 }

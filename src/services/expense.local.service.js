@@ -83,8 +83,6 @@ function _filterExpenses(expenses, { at, category }) {
     expensesToReturn = expensesToReturn.filter(e => e.category === category)
   }
 
-  console.log(expensesToReturn)
-
   return expensesToReturn
 }
 

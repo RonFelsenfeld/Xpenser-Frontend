@@ -22,6 +22,11 @@
 //   }
 // }
 
+@mixin fullPage() {
+  width: 100vw;
+  height: calc(100dvh - $app-header-height);
+}
+
 @mixin overflowText() {
   text-overflow: ellipsis;
   overflow: hidden;

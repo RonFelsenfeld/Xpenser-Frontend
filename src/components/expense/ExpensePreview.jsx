@@ -34,7 +34,7 @@ export function ExpensePreview({ expense, onRemoveExpense }) {
         </p>
       ) : (
         <Link to={`/expense/edit/${expense._id}`} className="btn-no no-category">
-          <button>- Add category</button>
+          <button>+ Add category</button>
         </Link>
       )}
 
@@ -42,7 +42,7 @@ export function ExpensePreview({ expense, onRemoveExpense }) {
         <p className="expense-at">{formatExpenseDate(at)}</p>
       ) : (
         <Link to={`/expense/edit/${expense._id}`} className="btn-no no-date">
-          <button>- Add date</button>
+          <button>+ Add date</button>
         </Link>
       )}
 

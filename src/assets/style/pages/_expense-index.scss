@@ -1,4 +1,7 @@
 .expense-index {
+  @include fullPage;
+  overflow: hidden;
+
   display: grid;
   grid-template-columns: 2fr 1fr;
   column-gap: 50px;
@@ -6,20 +9,30 @@
   padding: em(12px) em(24px);
   background-color: $main-bg-clr;
 
-  a {
-    display: inline-block;
-    width: fit-content;
-    .btn-add-expense {
-      @include scalableBtn;
-      @include btnTheme(14px, 14px);
+  .expenses-container {
+    overflow-y: scroll;
+    padding-block-end: em(20px);
 
-      border-radius: $el-br;
-      margin-block-end: em(10px);
-      font-size: 1.6em;
+    // Hiding scrollbar
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
-      &::after {
-        font-family: faSolid;
-        content: '\2b';
+    a {
+      display: inline-block;
+      width: fit-content;
+      .btn-add-expense {
+        @include scalableBtn;
+        @include btnTheme(14px, 14px);
+
+        border-radius: $el-br;
+        margin-block-end: em(10px);
+        font-size: 1.6em;
+
+        &::after {
+          font-family: faSolid;
+          content: '\2b';
+        }
       }
     }
   }

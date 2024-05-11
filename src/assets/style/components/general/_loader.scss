@@ -1,6 +1,8 @@
 .loader {
-  width: 65px;
-  margin: auto;
+  width: 100%;
+  height: calc(100dvh - $app-header-height);
+
+  background-color: $main-bg-clr;
 
   &-image {
     display: flex;
