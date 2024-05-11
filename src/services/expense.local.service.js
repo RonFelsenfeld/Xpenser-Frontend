@@ -10,6 +10,7 @@ export const expenseService = {
   remove,
   save,
   getEmptyExpense,
+  getExpenseCategories,
 }
 
 async function query() {
@@ -49,6 +50,10 @@ function getEmptyExpense() {
     at: null,
     notes: '',
   }
+}
+
+function getExpenseCategories() {
+  return ['Food', 'Transport', 'Entertainment', 'Utilities', 'Savings', 'Other']
 }
 
 ////////////////////////////////////////////////////

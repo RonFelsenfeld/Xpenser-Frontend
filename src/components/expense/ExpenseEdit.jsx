@@ -54,44 +54,52 @@ export function ExpenseEdit() {
     }
   }
 
+  function validateForm() {
+    return !expenseToEdit.txt || !expenseToEdit.amount
+  }
+
   // todo - add category and date
   return (
     <section className="expense-edit">
       <Link to="/">
-        <button className="btn-back">Back</button>
+        <button className="btn-back"></button>
       </Link>
 
-      <form>
-        <div className="input-container">
-          <label htmlFor="txt">Expense title</label>
-          <input
-            ref={txtInputRef}
-            type="text"
-            name="txt"
-            id="txt"
-            onChange={handleChange}
-            value={expenseToEdit.txt}
-            placeholder="title"
-          />
-        </div>
+      <div className="main-content flex column align-center">
+        <h1 className="edit-heading">{expenseId ? 'Edit' : 'Add'} Expense</h1>
 
-        <div className="input-container">
-          <label htmlFor="amount">Expense amount</label>
-          <input
-            type="number"
-            name="amount"
-            id="amount"
-            min={0.01}
-            onChange={handleChange}
-            value={expenseToEdit.amount}
-            placeholder="amount"
-          />
-        </div>
+        <form>
+          <div className="input-container flex column">
+            <label htmlFor="txt">Expense title</label>
+            <input
+              ref={txtInputRef}
+              type="text"
+              name="txt"
+              id="txt"
+              onChange={handleChange}
+              value={expenseToEdit.txt}
+              placeholder="title"
+            />
+          </div>
 
-        <button className="btn-submit" onClick={onSaveExpense}>
-          Save
-        </button>
-      </form>
+          <div className="input-container flex column">
+            <label htmlFor="amount">Expense amount</label>
+            <input
+              type="number"
+              name="amount"
+              id="amount"
+              min={0.01}
+              onChange={handleChange}
+              value={expenseToEdit.amount || ''}
+              placeholder="amount"
+            />
+          </div>
+
+          <button className="btn-submit" onClick={onSaveExpense} disabled={validateForm()}>
+            Save
+          </button>
+        </form>
+      </div>
     </section>
   )
 }

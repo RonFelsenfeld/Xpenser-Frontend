@@ -1,5 +1,9 @@
 .expense-index {
   background-color: $main-bg-clr;
+
+  .btn-add-expense {
+    @include scalableBtn;
+  }
 }
 
 .loading-msg {

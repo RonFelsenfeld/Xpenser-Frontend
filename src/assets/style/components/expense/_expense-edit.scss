@@ -9,4 +9,70 @@
   background-color: $main-bg-clr;
   box-shadow: -5px 2px 13px 0px rgba(92, 92, 92, 0.267);
   z-index: 1;
+
+  .btn-back {
+    @include scalableBtn;
+    background-color: transparent;
+    margin: em(10px);
+
+    &::after {
+      font-family: faSolid;
+      content: '\f060';
+      font-size: em(16px);
+    }
+  }
+
+  .main-content {
+    width: 100%;
+    padding-inline: em(20px);
+
+    .edit-heading {
+      margin-block-end: rem(40px);
+      font-size: em(24px);
+      font-family: FigtreeBold;
+    }
+
+    form {
+      width: 100%;
+      display: grid;
+
+      .input-container {
+        gap: em(5px);
+
+        label {
+          font-family: FigtreeMedium;
+          font-size: em(16px);
+        }
+
+        input {
+          @include overflowText;
+          padding-block: em(4px);
+        }
+
+        &:first-of-type {
+          margin-block-end: em(20px);
+        }
+      }
+
+      .btn-submit {
+        @include scalableBtn;
+        @include btnTheme;
+
+        border-radius: $el-br;
+        margin-block-start: em(20px);
+
+        font-size: em(14px);
+        justify-self: end;
+
+        &:hover {
+          background-color: darken($main-theme-clr, 10%);
+        }
+
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
 }

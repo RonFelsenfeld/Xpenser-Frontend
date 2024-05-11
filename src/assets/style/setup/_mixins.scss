@@ -1,23 +1,41 @@
-@mixin for-normal-layout {
-  @media (max-width: $break-normal) {
-    @content;
+// @mixin for-normal-layout {
+//   @media (max-width: $break-normal) {
+//     @content;
+//   }
+// }
+
+// @mixin for-narrow-layout {
+//   @media (max-width: $break-narrow) {
+//     @content;
+//   }
+// }
+
+// @mixin for-small-layout {
+//   @media (max-width: $break-small) {
+//     @content;
+//   }
+// }
+
+// @mixin for-mobile-layout {
+//   @media (max-width: $break-mobile) {
+//     @content;
+//   }
+// }
+
+@mixin overflowText() {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+@mixin scalableBtn() {
+  &:active {
+    scale: 0.95;
   }
 }
 
-@mixin for-narrow-layout {
-  @media (max-width: $break-narrow) {
-    @content;
-  }
-}
-
-@mixin for-small-layout {
-  @media (max-width: $break-small) {
-    @content;
-  }
-}
-
-@mixin for-mobile-layout {
-  @media (max-width: $break-mobile) {
-    @content;
-  }
+@mixin btnTheme($pad-block: 10px, $pad-inline: 20px) {
+  background-color: $main-theme-clr;
+  color: $main-bg-clr;
+  padding: $pad-block $pad-inline;
 }
