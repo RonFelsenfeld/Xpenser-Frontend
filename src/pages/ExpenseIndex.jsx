@@ -6,9 +6,10 @@ import { expenseService } from '../services/expense.local.service'
 import { ExpenseList } from '../components/expense/ExpenseList'
 import { ExpenseFilter } from '../components/expense/ExpenseFilter'
 import { PieChart } from '../components/general/PieChart'
+import { Loader } from '../components/general/Loader'
 
 export function ExpenseIndex() {
-  const [expenses, setExpenses] = useState([])
+  const [expenses, setExpenses] = useState(null)
   const [filterBy, setFilterBy] = useState(expenseService.getDefaultFilterBy())
 
   useEffect(() => {
@@ -34,8 +35,7 @@ export function ExpenseIndex() {
     }
   }
 
-  // todo - loader
-  if (!expenses.length) return <div className="loading-msg">Loading...</div>
+  if (!expenses) return <Loader />
   return (
     <section className="expense-index">
       <div>
@@ -45,10 +45,10 @@ export function ExpenseIndex() {
 
         <ExpenseFilter filterBy={filterBy} setFilterBy={setFilterBy} />
 
-        {expenses.length ? (
+        {expenses && expenses.length ? (
           <ExpenseList expenses={expenses} onRemoveExpense={onRemoveExpense} />
         ) : (
-          <div>Add your first expense</div>
+          <div>No expenses to show</div>
         )}
       </div>
 
