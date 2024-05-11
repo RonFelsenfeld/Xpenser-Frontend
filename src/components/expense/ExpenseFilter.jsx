@@ -18,7 +18,7 @@ export function ExpenseFilter({ filterBy, setFilterBy }) {
 
         <div className="filter-container flex">
           <div className="input-container flex column">
-            <label htmlFor="at">By date</label>
+            <label htmlFor="at">By a specific date</label>
             <input type="date" name="at" id="at" value={filterBy.at} onChange={handleChange} />
           </div>
 

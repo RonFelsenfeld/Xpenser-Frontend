@@ -88,6 +88,7 @@ function _filterExpenses(expenses, { at, category }) {
 
 function getCategoriesMap(expenses) {
   const expensesPerCategoryMap = expenses.reduce((map, { amount, category }) => {
+    if (!category) return map
     if (!map[category]) map[category] = 0
     map[category] += amount
     return map

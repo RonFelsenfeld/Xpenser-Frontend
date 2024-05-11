@@ -19,7 +19,7 @@ export function ExpensePreview({ expense, onRemoveExpense }) {
     return `${formattedDate}, ${formattedDay}`
   }
 
-  const { txt, amount, category, at } = expense
+  const { txt, amount, category, at, notes } = expense
   return (
     <article className="expense-preview flex align-center justify-between">
       <p className="bold-detail expense-txt">{txt}</p>
@@ -27,7 +27,7 @@ export function ExpensePreview({ expense, onRemoveExpense }) {
 
       {category ? (
         <p
-          className="expense-category"
+          className="expense-category flex align-center justify-center"
           style={{ backgroundColor: `var(--category-${category}-clr)` }}
         >
           {utilService.capitalize(category)}
@@ -43,6 +43,14 @@ export function ExpensePreview({ expense, onRemoveExpense }) {
       ) : (
         <Link to={`/expense/edit/${expense._id}`} className="btn-no no-date">
           <button>+ Add date</button>
+        </Link>
+      )}
+
+      {notes ? (
+        <p className="expense-notes">{notes}</p>
+      ) : (
+        <Link to={`/expense/edit/${expense._id}`} className="btn-no no-notes">
+          <button>+ Add notes</button>
         </Link>
       )}
 

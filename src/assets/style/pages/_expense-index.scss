@@ -18,16 +18,30 @@
       display: none;
     }
 
+    .expenses-header {
+      position: sticky;
+      top: 0;
+      background-color: $main-bg-clr;
+      z-index: 1;
+    }
+
     a {
       display: inline-block;
       width: fit-content;
+
       .btn-add-expense {
         @include scalableBtn;
         @include btnTheme(14px, 14px);
 
         border-radius: $el-br;
         margin-block-end: em(10px);
+
         font-size: 1.6em;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: darken($main-theme-clr, 10%);
+        }
 
         &::after {
           font-family: faSolid;
@@ -35,9 +49,9 @@
         }
       }
     }
-  }
-}
 
-.loading-msg {
-  font-size: em(24px);
+    .no-expenses {
+      font-size: em(16px);
+    }
+  }
 }

@@ -1,16 +1,19 @@
 .expense-preview {
   display: grid;
   grid-template-columns: 1fr auto;
-  grid-template-rows: 20px 30px auto;
+  grid-template-rows: 40px repeat(2, auto);
   grid-template-areas:
     'txt amount'
-    'at at'
+    'at notes'
     'category actions';
 
   padding-block-end: em(10px);
   border-block-end: 1px solid $main-border-clr;
+  transition: box-shadow 0.3s;
 
   &:hover {
+    box-shadow: 0px 4px 7px 2px rgba(184, 184, 184, 0.288);
+
     .actions-container {
       transform: translateX(0);
       opacity: 1;
@@ -31,7 +34,8 @@
     justify-self: start;
     align-self: end;
 
-    padding: rem(10px);
+    width: 80px;
+    padding-block: rem(10px);
     border-radius: $el-br;
 
     font-size: em(14px);
@@ -42,24 +46,35 @@
     grid-area: at;
   }
 
+  .expense-notes {
+    @include overflowText;
+    grid-area: notes;
+    justify-self: end;
+
+    font-size: em(12px);
+    color: $secondary-font-clr;
+  }
+
   .bold-detail {
     font-size: em(20px);
     font-family: FigtreeMedium;
   }
 
   .btn-no {
+    &:hover {
+      button {
+        color: $main-font-clr;
+      }
+    }
+
     button {
       @include scalableBtn;
       padding-inline: 0;
       align-self: center;
 
       color: $secondary-font-clr;
-
       background-color: transparent;
-    }
-
-    &:hover {
-      color: $main-font-clr;
+      transition: color 0.3s;
     }
 
     &.no-category {
@@ -68,6 +83,11 @@
 
     &.no-date {
       grid-area: at;
+    }
+
+    &.no-notes {
+      grid-area: notes;
+      justify-self: end;
     }
   }
 
@@ -88,6 +108,7 @@
 
       height: 32px;
       font-size: em(14px);
+      transition: background-color 0.3s;
 
       &::after {
         font-family: faSolid;

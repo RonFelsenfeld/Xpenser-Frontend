@@ -143,9 +143,11 @@ export function ExpenseEdit() {
                 type="txt"
                 name="notes"
                 id="notes"
+                maxLength={30}
                 onChange={handleChange}
                 value={expenseToEdit.notes}
                 placeholder="Notes"
+                autoComplete="off"
               />
             </div>
 

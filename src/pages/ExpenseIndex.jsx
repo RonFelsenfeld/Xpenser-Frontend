@@ -39,16 +39,21 @@ export function ExpenseIndex() {
   return (
     <section className="expense-index">
       <div className="expenses-container">
-        <Link to="/expense/edit">
-          <button className="btn-add-expense flex align-center justify-center"></button>
-        </Link>
+        <header className="expenses-header">
+          <Link to="/expense/edit">
+            <button
+              className="btn-add-expense flex align-center justify-center"
+              title="Add New Expense"
+            ></button>
+          </Link>
 
-        <ExpenseFilter filterBy={filterBy} setFilterBy={setFilterBy} />
+          <ExpenseFilter filterBy={filterBy} setFilterBy={setFilterBy} />
+        </header>
 
         {expenses && expenses.length ? (
           <ExpenseList expenses={expenses} onRemoveExpense={onRemoveExpense} />
         ) : (
-          <div>No expenses to show</div>
+          <span className="no-expenses">No expenses to show</span>
         )}
       </div>
 
