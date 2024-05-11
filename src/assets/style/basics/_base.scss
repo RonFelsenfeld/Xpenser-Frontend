@@ -3,6 +3,9 @@
 }
 
 html {
+  font-size: 0.625rem; // Root font size - 10px
+  color: $main-font-clr;
+  background-color: $surface-clr;
 }
 
 body,
