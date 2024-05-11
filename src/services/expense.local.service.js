@@ -12,6 +12,8 @@ export const expenseService = {
   getEmptyExpense,
   getExpenseCategories,
   getDefaultFilterBy,
+  getCategoriesMap,
+  getCategoriesColors,
 }
 
 async function query(filterBy = {}) {
@@ -84,6 +86,27 @@ function _filterExpenses(expenses, { at, category }) {
   console.log(expensesToReturn)
 
   return expensesToReturn
+}
+
+function getCategoriesMap(expenses) {
+  const expensesPerCategoryMap = expenses.reduce((map, { amount, category }) => {
+    if (!map[category]) map[category] = 0
+    map[category] += amount
+    return map
+  }, {})
+
+  return expensesPerCategoryMap
+}
+
+function getCategoriesColors(categories) {
+  const rootStyles = getComputedStyle(document.documentElement)
+
+  const colors = categories.map(category => {
+    const lowercasedCategory = category.toLowerCase()
+    return rootStyles.getPropertyValue(`--category-${lowercasedCategory}-clr`)
+  })
+
+  return colors
 }
 
 ////////////////////////////////////////////////////

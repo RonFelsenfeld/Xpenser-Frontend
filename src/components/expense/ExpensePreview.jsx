@@ -1,10 +1,7 @@
 import { Link } from 'react-router-dom'
+import { utilService } from '../../services/util.service'
 
 export function ExpensePreview({ expense, onRemoveExpense }) {
-  function getCapitalizedCategory(category) {
-    return category.charAt(0).toUpperCase() + category.slice(1)
-  }
-
   function formatAmountToCurrency(amount) {
     const formattedAmount = new Intl.NumberFormat('en-US', {
       style: 'currency',
@@ -12,6 +9,14 @@ export function ExpensePreview({ expense, onRemoveExpense }) {
     }).format(amount)
 
     return formattedAmount
+  }
+
+  function formatExpenseDate(date) {
+    const expenseDate = new Date(date)
+    const formattedDate = expenseDate.toLocaleDateString('en-GB')
+    const formattedDay = expenseDate.toLocaleDateString('en-GB', { weekday: 'long' })
+
+    return `${formattedDate}, ${formattedDay}`
   }
 
   const { txt, amount, category, at } = expense
@@ -25,7 +30,7 @@ export function ExpensePreview({ expense, onRemoveExpense }) {
           className="expense-category"
           style={{ backgroundColor: `var(--category-${category}-clr)` }}
         >
-          {getCapitalizedCategory(category)}
+          {utilService.capitalize(category)}
         </p>
       ) : (
         <Link to={`/expense/edit/${expense._id}`} className="btn-no no-category">
@@ -34,7 +39,7 @@ export function ExpensePreview({ expense, onRemoveExpense }) {
       )}
 
       {at ? (
-        <p className="expense-at">{at}</p>
+        <p className="expense-at">{formatExpenseDate(at)}</p>
       ) : (
         <Link to={`/expense/edit/${expense._id}`} className="btn-no no-date">
           <button>- Add date</button>

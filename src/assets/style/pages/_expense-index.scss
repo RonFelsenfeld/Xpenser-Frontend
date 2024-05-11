@@ -1,18 +1,26 @@
 .expense-index {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  column-gap: 50px;
+
+  padding: em(12px) em(24px);
   background-color: $main-bg-clr;
-  padding: em(8px) em(16px);
 
-  .btn-add-expense {
-    @include scalableBtn;
-    @include btnTheme(14px, 14px);
+  a {
+    display: inline-block;
+    width: fit-content;
+    .btn-add-expense {
+      @include scalableBtn;
+      @include btnTheme(14px, 14px);
 
-    border-radius: $el-br;
-    margin-block-end: em(10px);
-    font-size: 1.6em;
+      border-radius: $el-br;
+      margin-block-end: em(10px);
+      font-size: 1.6em;
 
-    &::after {
-      font-family: faSolid;
-      content: '\2b';
+      &::after {
+        font-family: faSolid;
+        content: '\2b';
+      }
     }
   }
 }

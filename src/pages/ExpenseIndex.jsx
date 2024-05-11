@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 
 import { expenseService } from '../services/expense.local.service'
+
 import { ExpenseList } from '../components/expense/ExpenseList'
 import { ExpenseFilter } from '../components/expense/ExpenseFilter'
+import { PieChart } from '../components/general/PieChart'
 
 export function ExpenseIndex() {
   const [expenses, setExpenses] = useState([])
@@ -36,17 +38,23 @@ export function ExpenseIndex() {
   if (!expenses.length) return <div className="loading-msg">Loading...</div>
   return (
     <section className="expense-index">
-      <Link to="/expense/edit">
-        <button className="btn-add-expense flex align-center justify-center"></button>
-      </Link>
+      <div>
+        <Link to="/expense/edit">
+          <button className="btn-add-expense flex align-center justify-center"></button>
+        </Link>
 
-      <ExpenseFilter filterBy={filterBy} setFilterBy={setFilterBy} />
+        <ExpenseFilter filterBy={filterBy} setFilterBy={setFilterBy} />
 
-      {expenses.length ? (
-        <ExpenseList expenses={expenses} onRemoveExpense={onRemoveExpense} />
-      ) : (
-        <div>Add your first expense</div>
-      )}
+        {expenses.length ? (
+          <ExpenseList expenses={expenses} onRemoveExpense={onRemoveExpense} />
+        ) : (
+          <div>Add your first expense</div>
+        )}
+      </div>
+
+      <div className="chart-container">
+        <PieChart expenses={expenses} />
+      </div>
 
       <Outlet context={[setExpenses]} />
     </section>
