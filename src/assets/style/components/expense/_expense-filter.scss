@@ -15,16 +15,29 @@
       gap: em(20px);
 
       .input-container {
+        position: relative;
         gap: em(5px);
 
-        label {
+        label,
+        p {
           font-family: FigtreeMedium;
           font-size: em(16px);
         }
 
-        input,
         select {
-          padding-block: em(4px);
+          padding-block: 4px;
+        }
+
+        .btn-open-picker {
+          padding-block: 5px;
+        }
+
+        .date-picker-container {
+          position: absolute;
+          top: 60px;
+
+          --animate-duration: 0.5s;
+          box-shadow: 0px 6px 12px 3px rgba(147, 147, 147, 0.408);
         }
       }
     }

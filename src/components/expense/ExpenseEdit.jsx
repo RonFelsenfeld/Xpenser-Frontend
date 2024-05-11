@@ -3,6 +3,7 @@ import { Link, useNavigate, useOutletContext, useParams } from 'react-router-dom
 
 import { expenseService } from '../../services/expense.local.service'
 import { Loader } from '../general/Loader'
+import { DatePicker } from '../general/DatePicker'
 
 export function ExpenseEdit() {
   const [expenseToEdit, setExpenseToEdit] = useState(expenseService.getEmptyExpense())
@@ -40,6 +41,13 @@ export function ExpenseEdit() {
     setExpenseToEdit(prevExpenseToEdit => ({
       ...prevExpenseToEdit,
       [field]: value,
+    }))
+  }
+
+  function handleDatePick(ev) {
+    setExpenseToEdit(prevExpenseToEdit => ({
+      ...prevExpenseToEdit,
+      at: new Date(ev).getTime(),
     }))
   }
 
@@ -121,17 +129,12 @@ export function ExpenseEdit() {
               />
             </div>
 
-            <div className="input-container flex column">
-              <label htmlFor="at">
-                Expense date <span className="optional">(Optional)</span>
-              </label>
-              <input
-                type="date"
-                name="at"
-                id="at"
-                onChange={handleChange}
-                value={expenseToEdit.at}
-              />
+            <p className="date-title">
+              Select date <span className="optional">(Optional)</span>
+            </p>
+
+            <div className="date-picker-container flex justify-center">
+              <DatePicker selected={expenseToEdit.at} setSelected={handleDatePick} />
             </div>
 
             <div className="input-container flex column">

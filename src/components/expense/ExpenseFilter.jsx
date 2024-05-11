@@ -1,6 +1,16 @@
+import { useRef, useState } from 'react'
+import { DatePicker } from '../general/DatePicker'
+import 'animate.css'
+
 import { expenseService } from '../../services/expense.local.service'
+import { useClickOutside } from '../../customHooks/useClickOutside'
 
 export function ExpenseFilter({ filterBy, setFilterBy }) {
+  const [isDatePickerOpen, setIsDatePickerOpen] = useState(false)
+  const datePickerRef = useRef()
+
+  useClickOutside(datePickerRef, () => setIsDatePickerOpen(false))
+
   function handleChange({ target }) {
     let { value, name: field } = target
 
@@ -8,6 +18,41 @@ export function ExpenseFilter({ filterBy, setFilterBy }) {
       ...prevFilterBy,
       [field]: value,
     }))
+  }
+
+  function handleDatePick(dateRange) {
+    if (!dateRange)
+      return setFilterBy(prevFilterBy => ({
+        ...prevFilterBy,
+        at: null,
+      }))
+
+    let { from, to } = dateRange
+    if (!to) to = from
+
+    const startDate = new Date(from).getTime()
+    const endDate = new Date(to).getTime()
+
+    setFilterBy(prevFilterBy => ({
+      ...prevFilterBy,
+      at: { from: startDate, to: endDate },
+    }))
+  }
+
+  function toggleIsDatePickerOpen() {
+    setIsDatePickerOpen(prevIsOpen => !prevIsOpen)
+  }
+
+  function getFormattedDateFilter() {
+    const { at } = filterBy
+    if (!at) return 'Open picker'
+
+    const { from, to } = at
+
+    let dateStr = new Date(from).toLocaleDateString('en-gb')
+    if (from !== to) dateStr += ` - ${new Date(to).toLocaleDateString('en-GB')}`
+
+    return dateStr
   }
 
   const categories = expenseService.getExpenseCategories()
@@ -18,8 +63,20 @@ export function ExpenseFilter({ filterBy, setFilterBy }) {
 
         <div className="filter-container flex">
           <div className="input-container flex column">
-            <label htmlFor="at">By a specific date</label>
-            <input type="date" name="at" id="at" value={filterBy.at} onChange={handleChange} />
+            <p htmlFor="at">By a specific date or range</p>
+
+            <button className="btn-open-picker" onClick={toggleIsDatePickerOpen}>
+              {getFormattedDateFilter()}
+            </button>
+
+            {isDatePickerOpen && (
+              <div
+                ref={datePickerRef}
+                className="date-picker-container animate__animated animate__flipInX"
+              >
+                <DatePicker selected={filterBy.at} setSelected={handleDatePick} isRange={true} />
+              </div>
+            )}
           </div>
 
           <div className="input-container flex column">

@@ -67,16 +67,16 @@ function getExpenseCategories() {
 }
 
 function getDefaultFilterBy() {
-  return { at: '', category: '' }
+  return { at: null, category: '' }
 }
 
 function _filterExpenses(expenses, { at, category }) {
   let expensesToReturn = expenses.slice()
 
   if (at) {
-    expensesToReturn = expensesToReturn.filter(
-      e => new Date(e.at).getTime() === new Date(at).getTime()
-    )
+    const { from, to } = at
+
+    expensesToReturn = expensesToReturn.filter(e => e.at >= from && e.at <= to)
   }
 
   if (category) {
