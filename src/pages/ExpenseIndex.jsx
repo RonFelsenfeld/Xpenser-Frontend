@@ -20,12 +20,26 @@ export function ExpenseIndex() {
     }
   }
 
+  async function onRemoveExpense(expenseId) {
+    try {
+      await expenseService.remove(expenseId)
+      setExpenses(prevExpenses => prevExpenses.filter(e => e._id !== expenseId))
+      // todo - show user msg
+    } catch (err) {
+      console.log('Had issues with removing expenses:', err)
+    }
+  }
+
   if (!expenses.length) return <div>Loading...</div>
   return (
     <section className="expense-index">
-      <h1>Expense Index</h1>
+      <h1 className="index-heading">Expense Index</h1>
 
-      {expenses.length ? <ExpenseList expenses={expenses} /> : <div>Add your first expense</div>}
+      {expenses.length ? (
+        <ExpenseList expenses={expenses} onRemoveExpense={onRemoveExpense} />
+      ) : (
+        <div>Add your first expense</div>
+      )}
     </section>
   )
 }

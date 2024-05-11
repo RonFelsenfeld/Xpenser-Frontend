@@ -1,0 +1,8 @@
+.app-header {
+  height: $app-header-height;
+  padding-inline: em(24px);
+
+  .logo {
+    font-size: em(32px);
+  }
+}

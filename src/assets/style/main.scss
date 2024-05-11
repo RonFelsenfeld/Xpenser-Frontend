@@ -2,6 +2,7 @@
 @import 'setup/typography';
 @import 'setup/vars';
 @import 'setup/mixins';
+@import 'setup/functions';
 
 // BASICS
 @import 'basics/base';
@@ -12,3 +13,6 @@
 @import 'pages/expense-index';
 
 // COMPONENTS
+@import 'components/general/app-header';
+@import 'components/expense/expense-list';
+@import 'components/expense/expense-preview';

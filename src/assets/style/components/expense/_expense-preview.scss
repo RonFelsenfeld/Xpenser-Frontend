@@ -1,0 +1,52 @@
+.expense-preview {
+  &:hover {
+    .actions-container {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  .expense-txt {
+    font-size: 1.6em;
+    .expense-amount {
+      // BOLD
+    }
+  }
+
+  .actions-container {
+    gap: 1em;
+    margin-inline-end: 1.5em;
+
+    opacity: 0;
+    transform: translateX(20px);
+    transition: all 0.4s;
+
+    .btn {
+      border-radius: 50%;
+      width: 32px;
+
+      height: 32px;
+      font-size: 1.4em;
+
+      &::after {
+        font-family: faSolid;
+        font-style: 1rem;
+      }
+
+      &.btn-edit {
+        background-color: $btn-edit-clr;
+
+        &::after {
+          content: '\f044';
+        }
+      }
+
+      &.btn-delete {
+        background-color: $btn-delete-clr;
+
+        &::after {
+          content: '\f1f8';
+        }
+      }
+    }
+  }
+}
