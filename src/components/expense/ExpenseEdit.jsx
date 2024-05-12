@@ -3,6 +3,12 @@ import { Link, useNavigate, useOutletContext, useParams } from 'react-router-dom
 
 import { expenseService } from '../../services/expense.service'
 import { showErrorMsg, showSuccessMsg } from '../../services/event-bus.service'
+import {
+  SOCKET_EMIT_ADD_EXPENSE,
+  SOCKET_EMIT_EDITING_EXPENSE,
+  SOCKET_EMIT_UPDATE_EXPENSE,
+  socketService,
+} from '../../services/socket.service'
 
 import { Loader } from '../general/Loader'
 import { DatePicker } from '../general/DatePicker'
@@ -14,6 +20,10 @@ export function ExpenseEdit() {
   const [setExpenses] = useOutletContext()
   const navigate = useNavigate()
   const { expenseId } = useParams()
+
+  useEffect(() => {
+    socketService.emit(SOCKET_EMIT_EDITING_EXPENSE, expenseId)
+  }, [])
 
   useEffect(() => {
     if (expenseId) loadExpense()
@@ -79,6 +89,10 @@ export function ExpenseEdit() {
         // If adding new expense
         return [...prevExpenses, savedExpense]
       })
+
+      const socketType = expenseId ? SOCKET_EMIT_UPDATE_EXPENSE : SOCKET_EMIT_ADD_EXPENSE
+
+      socketService.emit(socketType, savedExpense)
       showSuccessMsg('Expense saved!')
       navigate('/expense')
     } catch (err) {

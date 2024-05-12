@@ -1,9 +1,10 @@
 import { useContext } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { UserContext } from '../../contexts/UserContext'
 
+import { socketService } from '../../services/socket.service'
 import { showErrorMsg, showSuccessMsg } from '../../services/event-bus.service'
 import { userService } from '../../services/user.service'
+import { UserContext } from '../../contexts/UserContext'
 
 export function AppHeader() {
   const { user, setUser } = useContext(UserContext)
@@ -13,6 +14,8 @@ export function AppHeader() {
   async function handleLogout() {
     try {
       await userService.logout()
+      socketService.logout()
+
       showSuccessMsg('Logout successfully')
       setUser(null)
       navigate('/')

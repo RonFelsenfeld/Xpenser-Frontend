@@ -3,6 +3,15 @@ import { Link, Outlet, useNavigate } from 'react-router-dom'
 
 import { expenseService } from '../services/expense.service'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
+import {
+  SOCKET_EMIT_REMOVE_EXPENSE,
+  SOCKET_EMIT_SET_USER,
+  SOCKET_EVENT_EXPENSE_ADDED,
+  SOCKET_EVENT_EXPENSE_EDITED,
+  SOCKET_EVENT_EXPENSE_REMOVED,
+  SOCKET_EVENT_EXPENSE_UPDATED,
+  socketService,
+} from '../services/socket.service'
 import { UserContext } from '../contexts/UserContext'
 
 import { ExpenseList } from '../components/expense/ExpenseList'
@@ -20,6 +29,30 @@ export function ExpenseIndex() {
   useEffect(() => {
     // ! Blocking un-authorized entrance
     if (!user) navigate('/')
+    socketService.emit(SOCKET_EMIT_SET_USER, user)
+
+    socketService.on(SOCKET_EVENT_EXPENSE_ADDED, expense => {
+      setExpenses(prevExpenses => [...prevExpenses, expense])
+    })
+
+    socketService.on(SOCKET_EVENT_EXPENSE_REMOVED, expenseId => {
+      setExpenses(prevExpenses => prevExpenses.filter(e => e._id !== expenseId))
+    })
+
+    socketService.on(SOCKET_EVENT_EXPENSE_UPDATED, expense => {
+      setExpenses(prevExpenses => prevExpenses.map(e => (e._id === expense._id ? expense : e)))
+    })
+
+    socketService.on(SOCKET_EVENT_EXPENSE_EDITED, () => {
+      showSuccessMsg(`Someone is editing expense...`)
+    })
+
+    return () => {
+      socketService.off(SOCKET_EVENT_EXPENSE_ADDED)
+      socketService.off(SOCKET_EVENT_EXPENSE_REMOVED)
+      socketService.off(SOCKET_EVENT_EXPENSE_UPDATED)
+      socketService.off(SOCKET_EVENT_EXPENSE_EDITED)
+    }
   }, [])
 
   useEffect(() => {
@@ -39,6 +72,8 @@ export function ExpenseIndex() {
   async function onRemoveExpense(expenseId) {
     try {
       await expenseService.remove(expenseId)
+      socketService.emit(SOCKET_EMIT_REMOVE_EXPENSE, expenseId)
+
       setExpenses(prevExpenses => prevExpenses.filter(e => e._id !== expenseId))
       showSuccessMsg('Expense removed!')
     } catch (err) {

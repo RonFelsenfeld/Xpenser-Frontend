@@ -1,9 +1,10 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { UserContext } from '../../contexts/UserContext'
 
+import { socketService } from '../../services/socket.service'
 import { userService } from '../../services/user.service'
 import { showErrorMsg, showSuccessMsg } from '../../services/event-bus.service'
+import { UserContext } from '../../contexts/UserContext'
 
 export function LoginSignup() {
   const [isSignup, setIsSignup] = useState(false)
@@ -29,6 +30,8 @@ export function LoginSignup() {
   async function handleLogin(credentials) {
     try {
       const user = await userService.login(credentials)
+      socketService.login(user._id)
+
       showSuccessMsg(`Welcome back, ${user.username}`)
       navigate('/expense')
       setUser(user)
@@ -41,6 +44,8 @@ export function LoginSignup() {
   async function handleSignup(credentials) {
     try {
       const user = await userService.signup(credentials)
+      socketService.login(user._id)
+
       showSuccessMsg(`Welcome, ${user.username}`)
       navigate('/expense')
       setUser(user)
