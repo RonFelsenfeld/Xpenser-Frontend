@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react'
-import { Link, Outlet } from 'react-router-dom'
+import { useContext, useEffect, useState } from 'react'
+import { Link, Outlet, useNavigate } from 'react-router-dom'
 
 import { expenseService } from '../services/expense.local.service'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
+import { UserContext } from '../contexts/UserContext'
 
 import { ExpenseList } from '../components/expense/ExpenseList'
 import { ExpenseFilter } from '../components/expense/ExpenseFilter'
@@ -12,6 +13,16 @@ import { Loader } from '../components/general/Loader'
 export function ExpenseIndex() {
   const [expenses, setExpenses] = useState(null)
   const [filterBy, setFilterBy] = useState(expenseService.getDefaultFilterBy())
+
+  const { user } = useContext(UserContext)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    // ! Blocking un-authorized entrance
+    if (!user) {
+      navigate('/')
+    }
+  }, [])
 
   useEffect(() => {
     loadExpenses(filterBy)

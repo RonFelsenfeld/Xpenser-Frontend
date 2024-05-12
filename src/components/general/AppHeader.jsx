@@ -26,6 +26,7 @@ export function AppHeader() {
   return (
     <header className="app-header flex align-center justify-between">
       <h1 className="logo">Xpenser</h1>
+
       {user && (
         <div className="user-container flex align-center">
           <span className="user-greet">Hello, {user.username}</span>
