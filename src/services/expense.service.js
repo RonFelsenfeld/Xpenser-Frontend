@@ -1,4 +1,5 @@
 import { httpService } from './http.service'
+import { utilService } from './util.service'
 
 const BASE_URL = 'expense'
 
@@ -12,6 +13,7 @@ export const expenseService = {
   getDefaultFilterBy,
   getCategoriesMap,
   getCategoriesColors,
+  getExpensesPerMonthMap,
 }
 
 async function query(filterBy = {}) {
@@ -102,4 +104,19 @@ function getCategoriesColors(categories) {
   })
 
   return colors
+}
+
+function getExpensesPerMonthMap(expenses) {
+  const lastFourMonthsMap = utilService.getLastFourMonths()
+
+  expenses.forEach(({ amount, at }) => {
+    if (!at) return
+
+    const month = new Date(at).toLocaleDateString('en-GB', { month: 'long' })
+    if (lastFourMonthsMap[month] === undefined) return
+
+    lastFourMonthsMap[month] += amount
+  })
+
+  return lastFourMonthsMap
 }

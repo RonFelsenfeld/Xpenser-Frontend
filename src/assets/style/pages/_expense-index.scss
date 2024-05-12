@@ -12,16 +12,12 @@
   }
 
   .expenses-container {
+    @include hideScrollBar;
     overflow-y: scroll;
 
     padding: em(20px) em(40px);
     border-top-right-radius: $cmp-br;
     background-color: $main-bg-clr;
-
-    // Hiding scrollbar
-    &::-webkit-scrollbar {
-      display: none;
-    }
 
     .expenses-header {
       position: sticky;
@@ -64,7 +60,12 @@
     }
   }
 
-  .chart-container {
+  .statistics-container {
+    @include hideScrollBar;
+
+    height: 100%;
+    overflow-y: scroll;
+
     padding: em(20px) em(40px);
     border-top-left-radius: $cmp-br;
     background-color: $main-bg-clr;

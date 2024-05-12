@@ -5,6 +5,7 @@ export const utilService = {
   saveToStorage,
   loadFromStorage,
   capitalize,
+  getLastFourMonths,
 }
 
 function makeId(length = 6) {
@@ -45,4 +46,39 @@ function loadFromStorage(key) {
 
 function capitalize(str) {
   return str.charAt(0).toUpperCase() + str.slice(1)
+}
+
+function getLastFourMonths() {
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ]
+
+  const currentMonthIndex = new Date().getMonth()
+
+  const lastFourMonthIndexes = [
+    (currentMonthIndex - 3 + 12) % 12,
+    (currentMonthIndex - 2 + 12) % 12,
+    (currentMonthIndex - 1 + 12) % 12,
+    currentMonthIndex,
+  ]
+
+  const lastFourMonthsObject = {}
+
+  lastFourMonthIndexes.forEach(index => {
+    const monthName = months[index]
+    lastFourMonthsObject[monthName] = 0
+  })
+
+  return lastFourMonthsObject
 }

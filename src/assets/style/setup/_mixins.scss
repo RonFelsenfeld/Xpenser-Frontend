@@ -49,3 +49,18 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+@mixin hideScrollBar() {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@mixin chartContainer($margin-bottom: 0px) {
+  .chart-title {
+    text-align: center;
+    font-size: em(24px);
+    font-family: FigtreeMedium;
+    margin-block-end: $margin-bottom;
+  }
+}

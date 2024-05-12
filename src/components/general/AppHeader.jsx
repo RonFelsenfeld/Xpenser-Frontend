@@ -26,9 +26,13 @@ export function AppHeader() {
   }
 
   const { pathname } = location
+
   return (
     <header className="app-header flex align-center justify-between">
-      <h1 className="logo">Xpenser</h1>
+      <div className="title-container flex align-center">
+        <img src="/assets/img/loader-coin.png" alt="Green coin" className="login-img" />
+        <h1 className="main-heading">Xpenser</h1>
+      </div>
 
       {user && (
         <div className="user-container flex align-center">
