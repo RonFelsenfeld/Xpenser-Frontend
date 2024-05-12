@@ -39,6 +39,11 @@ export function ExpenseFilter({ filterBy, setFilterBy }) {
     }))
   }
 
+  function onClearFilter() {
+    const defaultFilter = expenseService.getDefaultFilterBy()
+    setFilterBy({ ...defaultFilter })
+  }
+
   function toggleIsDatePickerOpen() {
     setIsDatePickerOpen(prevIsOpen => !prevIsOpen)
   }
@@ -55,6 +60,11 @@ export function ExpenseFilter({ filterBy, setFilterBy }) {
     return dateStr
   }
 
+  function getFilteringByCriteriaClass(criteria) {
+    if (filterBy[criteria]) return 'active'
+    return ''
+  }
+
   const categories = expenseService.getExpenseCategories()
   return (
     <section className="expense-filter">
@@ -68,8 +78,9 @@ export function ExpenseFilter({ filterBy, setFilterBy }) {
               type="text"
               name="txt"
               id="txt"
+              className={getFilteringByCriteriaClass('txt')}
               onChange={handleChange}
-              value={filterBy.title}
+              value={filterBy.txt}
               placeholder="title"
               autoComplete="off"
             />
@@ -78,7 +89,10 @@ export function ExpenseFilter({ filterBy, setFilterBy }) {
           <div className="input-container flex column">
             <p htmlFor="at">By a specific date or range</p>
 
-            <button className="btn-open-picker" onClick={toggleIsDatePickerOpen}>
+            <button
+              className={`btn-open-picker ${getFilteringByCriteriaClass('at')}`}
+              onClick={toggleIsDatePickerOpen}
+            >
               {getFormattedDateFilter()}
             </button>
 
@@ -94,7 +108,13 @@ export function ExpenseFilter({ filterBy, setFilterBy }) {
 
           <div className="input-container flex column">
             <label htmlFor="category">By category</label>
-            <select name="category" id="category" onChange={handleChange}>
+            <select
+              name="category"
+              id="category"
+              onChange={handleChange}
+              className={getFilteringByCriteriaClass('category')}
+              value={filterBy.category}
+            >
               <option value="">All</option>
 
               {categories.map((category, idx) => (
@@ -105,6 +125,12 @@ export function ExpenseFilter({ filterBy, setFilterBy }) {
             </select>
           </div>
         </div>
+
+        <button
+          title="Clear Filter"
+          className="btn-clear-filter flex align-center justify-center"
+          onClick={onClearFilter}
+        ></button>
       </fieldset>
     </section>
   )

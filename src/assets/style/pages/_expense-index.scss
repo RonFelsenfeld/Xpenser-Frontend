@@ -47,6 +47,10 @@
           font-family: faSolid;
           content: '\2b';
         }
+
+        &:disabled {
+          @include disabledBtn;
+        }
       }
     }
 

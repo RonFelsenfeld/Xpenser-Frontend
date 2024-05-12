@@ -1,5 +1,7 @@
 .expense-filter {
   .filter-fieldset {
+    align-items: end;
+
     border: 2px solid $main-theme-clr;
     border-radius: $el-br;
     padding: em(10px) em(15px);
@@ -12,7 +14,12 @@
     }
 
     .filter-container {
+      width: 100%;
       gap: em(20px);
+
+      > * {
+        flex-grow: 1;
+      }
 
       .input-container {
         position: relative;
@@ -38,10 +45,28 @@
         .date-picker-container {
           position: absolute;
           top: 60px;
+          left: 50%;
+
+          transform: translateX(50%);
 
           --animate-duration: 0.5s;
           box-shadow: 0px 6px 12px 3px rgba(147, 147, 147, 0.408);
         }
+
+        > *.active {
+          background-color: $active-filter-clr;
+        }
+      }
+    }
+
+    .btn-clear-filter {
+      @include btnTheme(8px, 12px);
+      margin-inline-start: em(13px);
+      border-radius: $el-br;
+
+      &::after {
+        font-family: faSolid;
+        content: '\f00d';
       }
     }
   }

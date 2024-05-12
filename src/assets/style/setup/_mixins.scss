@@ -44,3 +44,8 @@
   color: $main-bg-clr;
   padding: $pad-block $pad-inline;
 }
+
+@mixin disabledBtn() {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
