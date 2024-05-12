@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { DatePicker } from '../general/DatePicker'
 
-import { expenseService } from '../../services/expense.local.service'
+import { expenseService } from '../../services/expense.service'
 import { useClickOutside } from '../../customHooks/useClickOutside'
 
 export function ExpenseFilter({ filterBy, setFilterBy }) {

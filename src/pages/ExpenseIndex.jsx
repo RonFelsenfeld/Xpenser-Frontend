@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 
-import { expenseService } from '../services/expense.local.service'
+import { expenseService } from '../services/expense.service'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 import { UserContext } from '../contexts/UserContext'
 
@@ -19,9 +19,7 @@ export function ExpenseIndex() {
 
   useEffect(() => {
     // ! Blocking un-authorized entrance
-    if (!user) {
-      navigate('/')
-    }
+    if (!user) navigate('/')
   }, [])
 
   useEffect(() => {

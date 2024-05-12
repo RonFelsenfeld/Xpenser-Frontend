@@ -1,15 +1,15 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { UserContext } from '../../contexts/UserContext'
 
-import { userService } from '../../services/user.service.local'
+import { userService } from '../../services/user.service'
 import { showErrorMsg, showSuccessMsg } from '../../services/event-bus.service'
 
 export function LoginSignup() {
   const [isSignup, setIsSignup] = useState(false)
   const [credentials, setCredentials] = useState(userService.getEmptyCredentials())
-  const { setUser } = useContext(UserContext)
 
+  const { setUser } = useContext(UserContext)
   const navigate = useNavigate()
 
   function handleChange({ target }) {
@@ -50,7 +50,7 @@ export function LoginSignup() {
     }
   }
 
-  const guestCredentials = { username: 'guest', password: '12345' }
+  const guestCredentials = { username: 'Guest', password: '12345' }
   return (
     <section className="login-page flex column align-center justify-center">
       <header className="login-header flex column align-center ">
@@ -90,7 +90,7 @@ export function LoginSignup() {
           />
         </div>
 
-        <button className="btn-submit">{isSignup ? 'Signup' : 'Login'}</button>
+        <button className="btn-submit">{isSignup ? 'Sign up' : 'Login'}</button>
       </form>
 
       <p className="already-user flex">
@@ -101,6 +101,7 @@ export function LoginSignup() {
       </p>
 
       <button
+        type="button"
         className="btn-guest"
         onClick={() => {
           handleLogin(guestCredentials)

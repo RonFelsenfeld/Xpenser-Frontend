@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { UserContext } from '../../contexts/UserContext'
 
 import { showErrorMsg, showSuccessMsg } from '../../services/event-bus.service'
-import { userService } from '../../services/user.service.local'
+import { userService } from '../../services/user.service'
 
 export function AppHeader() {
   const { user, setUser } = useContext(UserContext)

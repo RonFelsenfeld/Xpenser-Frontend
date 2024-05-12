@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { UserContext } from './contexts/UserContext'
+import { userService } from './services/user.service'
 
 import { ExpenseIndex } from './pages/ExpenseIndex'
 
@@ -10,7 +11,7 @@ import { UserMsg } from './components/general/UserMsg'
 import { LoginSignup } from './components/general/LoginSignup'
 
 export function App() {
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState(userService.getLoggedInUser() || null)
 
   return (
     <Router>

@@ -1,7 +1,7 @@
 import { Pie } from 'react-chartjs-2'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 
-import { expenseService } from '../../services/expense.local.service'
+import { expenseService } from '../../services/expense.service'
 import { utilService } from '../../services/util.service'
 
 ChartJS.register(ArcElement, Tooltip, Legend)

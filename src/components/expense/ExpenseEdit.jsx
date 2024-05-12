@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useOutletContext, useParams } from 'react-router-dom'
 
-import { expenseService } from '../../services/expense.local.service'
+import { expenseService } from '../../services/expense.service'
 import { showErrorMsg, showSuccessMsg } from '../../services/event-bus.service'
 
 import { Loader } from '../general/Loader'
