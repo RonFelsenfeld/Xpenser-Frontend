@@ -1,0 +1,70 @@
+.login-page {
+  @include fullPage;
+  background-color: $main-bg-clr;
+
+  .login-header {
+    line-height: 1.5;
+    margin-block-end: 20px;
+
+    .main-heading {
+      font-family: FigtreeBold;
+      font-size: em(40px);
+      margin-block-end: 10px;
+    }
+
+    .secondary-heading {
+      font-family: FigtreeRegular;
+      font-size: em(18px);
+    }
+  }
+
+  form {
+    gap: 10px;
+
+    .input-container {
+      gap: 3px;
+      width: 30vw;
+      font-size: em(16px);
+
+      input {
+        border: 1px solid $secondary-font-clr;
+        padding: 10px 5px;
+      }
+    }
+
+    .btn-submit {
+      @include btnTheme;
+      @include scalableBtn;
+
+      margin-block-start: 20px;
+      font-size: em(16px);
+
+      &:hover {
+        background-color: darken($main-theme-clr, 15%);
+      }
+    }
+  }
+
+  .already-user {
+    align-items: baseline;
+    gap: 5px;
+
+    margin-block-start: 10px;
+
+    font-family: FigtreeRegular, sans-serif;
+    font-size: em(16px);
+
+    .btn-toggle {
+      cursor: pointer;
+      color: $main-theme-clr;
+    }
+  }
+
+  .btn-guest {
+    font-size: em(16px);
+    font-family: FigtreeMedium;
+    margin-block-start: 20px;
+    background-color: transparent;
+    color: $main-theme-clr;
+  }
+}

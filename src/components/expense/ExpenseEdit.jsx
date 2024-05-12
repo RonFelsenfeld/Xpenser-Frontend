@@ -76,7 +76,7 @@ export function ExpenseEdit() {
         return [...prevExpenses, savedExpense]
       })
       showSuccessMsg('Expense saved!')
-      navigate('/')
+      navigate('/expense')
     } catch (err) {
       console.log('Had issues with saving expense:', err)
       showErrorMsg('Could not save expense at the moment')
@@ -96,7 +96,7 @@ export function ExpenseEdit() {
 
   return (
     <section className="expense-edit">
-      <Link to="/">
+      <Link to="/expense">
         <button className="btn-back"></button>
       </Link>
 
