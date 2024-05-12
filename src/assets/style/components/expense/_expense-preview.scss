@@ -7,12 +7,13 @@
     'at notes'
     'category actions';
 
-  padding-block-end: em(10px);
+  padding: em(10px);
+
   border-block-end: 1px solid $main-border-clr;
   transition: box-shadow 0.3s;
 
   &:hover {
-    box-shadow: 0px 4px 7px 2px rgba(184, 184, 184, 0.288);
+    box-shadow: 4px 6px 5px 0px rgba(193, 193, 193, 0.288);
 
     .actions-container {
       transform: translateX(0);
@@ -21,6 +22,7 @@
   }
 
   .expense-txt {
+    @include overflowText;
     grid-area: txt;
   }
 
@@ -57,7 +59,7 @@
 
   .bold-detail {
     font-size: em(20px);
-    font-family: FigtreeMedium;
+    font-family: FigtreeBold;
   }
 
   .btn-no {

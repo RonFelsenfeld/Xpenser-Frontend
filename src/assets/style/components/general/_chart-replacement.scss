@@ -1,0 +1,25 @@
+.chart-replacement {
+  display: grid;
+  grid-template-rows: repeat(2, auto) 1fr;
+  justify-items: center;
+  height: 100%;
+
+  .main-heading {
+    margin-block-end: 10px;
+
+    font-size: em(24px);
+    font-family: FigtreeMedium;
+    letter-spacing: -0.2px;
+  }
+
+  .add-category {
+    font-size: em(20px);
+    font-family: FigtreeLight;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  .finance-img {
+    place-self: center;
+  }
+}

@@ -18,6 +18,8 @@ import { ExpenseList } from '../components/expense/ExpenseList'
 import { ExpenseFilter } from '../components/expense/ExpenseFilter'
 import { PieChart } from '../components/general/PieChart'
 import { Loader } from '../components/general/Loader'
+import { fi } from 'date-fns/locale'
+import { ChartReplacement } from '../components/general/ChartReplacment'
 
 export function ExpenseIndex() {
   const [expenses, setExpenses] = useState(null)
@@ -86,6 +88,12 @@ export function ExpenseIndex() {
     setFilterBy(filterBy)
   }
 
+  // ! Render chart only when there are expenses and some with category
+  function isExistDataForChart() {
+    const hasCategory = expenses.some(expense => expense.category)
+    return expenses?.length && hasCategory
+  }
+
   if (!expenses) return <Loader />
   return (
     <section className="expense-index">
@@ -109,7 +117,7 @@ export function ExpenseIndex() {
       </div>
 
       <div className="chart-container">
-        <PieChart expenses={expenses} />
+        {isExistDataForChart() ? <PieChart expenses={expenses} /> : <ChartReplacement />}
       </div>
 
       <Outlet context={[setExpenses]} />

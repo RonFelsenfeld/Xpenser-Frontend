@@ -88,7 +88,7 @@ export const ExpenseFilter = memo(({ filterBy, onSetFilterBy }) => {
               className={getFilteringByCriteriaClass('txt')}
               onChange={handleChange}
               value={filterByToEdit.txt}
-              placeholder="title"
+              placeholder="Title"
               autoComplete="off"
             />
           </div>

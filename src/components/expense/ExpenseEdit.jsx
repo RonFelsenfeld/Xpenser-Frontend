@@ -135,6 +135,7 @@ export function ExpenseEdit() {
                 value={expenseToEdit.txt}
                 placeholder="title"
                 autoComplete="off"
+                maxLength={50}
                 autoFocus
               />
             </div>

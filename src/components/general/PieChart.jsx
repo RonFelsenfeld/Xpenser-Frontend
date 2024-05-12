@@ -20,11 +20,11 @@ export function PieChart({ expenses }) {
     labels: categoriesInMap,
     datasets: [
       {
-        label: 'Total Expenses',
+        label: 'Total expenses',
         data: totalExpensesPerCategory,
         backgroundColor: categoriesColor,
         borderColor: categoriesColor,
-        borderWidth: 2,
+        borderWidth: 1,
       },
     ],
   }
@@ -37,6 +37,10 @@ export function PieChart({ expenses }) {
         display: true,
         labels: {
           padding: 20,
+          color: 'rgb(50, 51, 56)',
+          font: {
+            size: 18,
+          },
         },
       },
     },

@@ -4,14 +4,14 @@
 
   display: grid;
   grid-template-columns: 2fr 1fr;
-  column-gap: 50px;
-
-  padding: em(12px) em(24px);
-  background-color: $main-bg-clr;
+  column-gap: 30px;
 
   .expenses-container {
     overflow-y: scroll;
-    padding-block-end: em(20px);
+
+    padding: em(20px) em(40px);
+    border-top-right-radius: $cmp-br;
+    background-color: $main-bg-clr;
 
     // Hiding scrollbar
     &::-webkit-scrollbar {
@@ -57,5 +57,11 @@
     .no-expenses {
       font-size: em(16px);
     }
+  }
+
+  .chart-container {
+    padding: em(20px) em(40px);
+    border-top-left-radius: $cmp-br;
+    background-color: $main-bg-clr;
   }
 }
