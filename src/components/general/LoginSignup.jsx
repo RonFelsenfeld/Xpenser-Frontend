@@ -1,5 +1,6 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { UserContext } from '../../contexts/UserContext'
 
 import { userService } from '../../services/user.service.local'
 import { showErrorMsg, showSuccessMsg } from '../../services/event-bus.service'
@@ -7,6 +8,8 @@ import { showErrorMsg, showSuccessMsg } from '../../services/event-bus.service'
 export function LoginSignup() {
   const [isSignup, setIsSignup] = useState(false)
   const [credentials, setCredentials] = useState(userService.getEmptyCredentials())
+  const { setUser } = useContext(UserContext)
+
   const navigate = useNavigate()
 
   function handleChange({ target }) {
@@ -28,6 +31,7 @@ export function LoginSignup() {
       const user = await userService.login(credentials)
       showSuccessMsg(`Welcome back, ${user.username}`)
       navigate('/expense')
+      setUser(user)
     } catch (err) {
       console.log('Login -> Has issues login', err)
       showErrorMsg('Could not login, try again later.')
@@ -39,6 +43,7 @@ export function LoginSignup() {
       const user = await userService.signup(credentials)
       showSuccessMsg(`Welcome, ${user.username}`)
       navigate('/expense')
+      setUser(user)
     } catch (err) {
       console.log('Signup -> Has issues signup', err)
       showErrorMsg('Could not sign-in, try again later.')

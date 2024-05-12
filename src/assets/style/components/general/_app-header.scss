@@ -6,4 +6,20 @@
     font-family: FigtreeBold;
     font-size: em(32px);
   }
+
+  .user-container {
+    gap: em(10px);
+
+    .user-greet {
+      font-size: 1.6rem;
+    }
+  }
+
+  .btn-logout {
+    @include btnTheme(10px, 20px);
+    @include scalableBtn;
+
+    border-radius: $el-br;
+    font-family: FigtreeBold;
+  }
 }
