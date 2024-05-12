@@ -1,6 +1,5 @@
 import { useRef, useState } from 'react'
 import { DatePicker } from '../general/DatePicker'
-import 'animate.css'
 
 import { expenseService } from '../../services/expense.local.service'
 import { useClickOutside } from '../../customHooks/useClickOutside'

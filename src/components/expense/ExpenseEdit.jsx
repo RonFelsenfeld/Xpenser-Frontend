@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate, useOutletContext, useParams } from 'react-router-dom'
 
 import { expenseService } from '../../services/expense.local.service'
+import { showErrorMsg, showSuccessMsg } from '../../services/event-bus.service'
+
 import { Loader } from '../general/Loader'
 import { DatePicker } from '../general/DatePicker'
 
@@ -72,9 +74,11 @@ export function ExpenseEdit() {
         // If adding new expense
         return [...prevExpenses, savedExpense]
       })
+      showSuccessMsg('Expense saved!')
       navigate('/')
     } catch (err) {
       console.log('Had issues with saving expense:', err)
+      showErrorMsg('Could not save expense at the moment')
     }
   }
 

@@ -1,0 +1,34 @@
+.user-msg {
+  position: fixed;
+  top: $app-header-height;
+  right: 3em;
+
+  gap: em(10px);
+  height: 50px;
+  padding: rem(16px) rem(32px);
+  border-radius: $el-br;
+
+  font-size: em(16px);
+  color: $main-bg-clr;
+  z-index: 1;
+
+  &.success {
+    background-color: $clr-success;
+  }
+
+  &.error {
+    background-color: $clr-error;
+  }
+
+  .btn-close-msg {
+    background-color: transparent;
+    color: $main-bg-clr;
+    margin-inline-start: em(13px);
+    border-radius: $el-br;
+
+    &::after {
+      font-family: faSolid;
+      content: '\f00d';
+    }
+  }
+}

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 
 import { expenseService } from '../services/expense.local.service'
+import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 
 import { ExpenseList } from '../components/expense/ExpenseList'
 import { ExpenseFilter } from '../components/expense/ExpenseFilter'
@@ -22,6 +23,7 @@ export function ExpenseIndex() {
       setExpenses(expenses)
     } catch (err) {
       console.log('Had issues with loading expenses:', err)
+      showErrorMsg('Could not load expenses at the moment')
     }
   }
 
@@ -29,9 +31,10 @@ export function ExpenseIndex() {
     try {
       await expenseService.remove(expenseId)
       setExpenses(prevExpenses => prevExpenses.filter(e => e._id !== expenseId))
-      // todo - show user msg
+      showSuccessMsg('Expense removed!')
     } catch (err) {
       console.log('Had issues with removing expense:', err)
+      showErrorMsg('Could not remove expense at the moment')
     }
   }
 

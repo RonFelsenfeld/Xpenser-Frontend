@@ -45,9 +45,6 @@
         .date-picker-container {
           position: absolute;
           top: 60px;
-          left: 50%;
-
-          transform: translateX(50%);
 
           --animate-duration: 0.5s;
           box-shadow: 0px 6px 12px 3px rgba(147, 147, 147, 0.408);
