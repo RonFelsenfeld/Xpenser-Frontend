@@ -2,6 +2,8 @@ import { useContext, useEffect, useState } from 'react'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 
 import { expenseService } from '../services/expense.service'
+import { utilService } from '../services/util.service'
+
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
 import {
   SOCKET_EMIT_REMOVE_EXPENSE,
@@ -86,17 +88,27 @@ export function ExpenseIndex() {
     setFilterBy(filterBy)
   }
 
+  function getTotalExpenses() {
+    const totalExpenses = expenseService.calcTotalExpenses(expenses)
+    return utilService.getFormattedCurrency(totalExpenses)
+  }
+
   if (!expenses) return <Loader />
   return (
     <section className="expense-index">
       <div className="expenses-container">
         <header className="expenses-header">
-          <Link to="/expense/edit">
-            <button
-              className="btn-add-expense flex align-center justify-center"
-              title="Add New Expense"
-            ></button>
-          </Link>
+          <div className="total-container flex align-center justify-between">
+            <Link to="/expense/edit">
+              <button
+                className="btn-add-expense flex align-center justify-center"
+                title="Add New Expense"
+              ></button>
+            </Link>
+            <p className="total-expenses flex align-center">
+              Total expenses: <span>{getTotalExpenses()}</span>
+            </p>
+          </div>
 
           <ExpenseFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
         </header>

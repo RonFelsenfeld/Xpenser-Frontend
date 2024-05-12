@@ -6,6 +6,7 @@ export const utilService = {
   loadFromStorage,
   capitalize,
   getLastFourMonths,
+  getFormattedCurrency,
 }
 
 function makeId(length = 6) {
@@ -81,4 +82,13 @@ function getLastFourMonths() {
   })
 
   return lastFourMonthsObject
+}
+
+function getFormattedCurrency(amount) {
+  const formattedAmount = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'ILS',
+  }).format(amount)
+
+  return formattedAmount
 }

@@ -2,15 +2,6 @@ import { Link } from 'react-router-dom'
 import { utilService } from '../../services/util.service'
 
 export function ExpensePreview({ expense, onRemoveExpense }) {
-  function formatAmountToCurrency(amount) {
-    const formattedAmount = new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'ILS',
-    }).format(amount)
-
-    return formattedAmount
-  }
-
   function formatExpenseDate(date) {
     const expenseDate = new Date(date)
     const formattedDate = expenseDate.toLocaleDateString('en-GB')
@@ -23,7 +14,7 @@ export function ExpensePreview({ expense, onRemoveExpense }) {
   return (
     <article className="expense-preview flex align-center justify-between">
       <p className="bold-detail expense-txt">{txt}</p>
-      <p className="bold-detail expense-amount">{formatAmountToCurrency(amount)}</p>
+      <p className="bold-detail expense-amount">{utilService.getFormattedCurrency(amount)}</p>
 
       {category ? (
         <p

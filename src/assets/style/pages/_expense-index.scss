@@ -26,31 +26,44 @@
       z-index: 1;
     }
 
-    a {
-      display: inline-block;
-      width: fit-content;
+    .total-container {
+      margin-block-end: em(14px);
 
-      .btn-add-expense {
-        @include scalableBtn;
-        @include btnTheme(14px, 14px);
-
-        border-radius: $el-br;
-        margin-block-end: em(10px);
-
+      .total-expenses {
+        gap: 8px;
         font-size: 1.6em;
-        transition: background-color 0.3s;
 
-        &:hover {
-          background-color: darken($main-theme-clr, 10%);
+        span {
+          font-size: 2rem;
+          font-family: FigtreeBold;
         }
+      }
 
-        &::after {
-          font-family: faSolid;
-          content: '\2b';
-        }
+      a {
+        display: inline-block;
+        width: fit-content;
 
-        &:disabled {
-          @include disabledBtn;
+        .btn-add-expense {
+          @include scalableBtn;
+          @include btnTheme(14px, 14px);
+
+          border-radius: $el-br;
+
+          font-size: 1.6em;
+          transition: background-color 0.3s;
+
+          &:hover {
+            background-color: darken($main-theme-clr, 10%);
+          }
+
+          &::after {
+            font-family: faSolid;
+            content: '\2b';
+          }
+
+          &:disabled {
+            @include disabledBtn;
+          }
         }
       }
     }

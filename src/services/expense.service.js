@@ -14,6 +14,7 @@ export const expenseService = {
   getCategoriesMap,
   getCategoriesColors,
   getExpensesPerMonthMap,
+  calcTotalExpenses,
 }
 
 async function query(filterBy = {}) {
@@ -119,4 +120,8 @@ function getExpensesPerMonthMap(expenses) {
   })
 
   return lastFourMonthsMap
+}
+
+function calcTotalExpenses(expenses) {
+  return expenses.reduce((acc, { amount }) => (acc += amount), 0)
 }
