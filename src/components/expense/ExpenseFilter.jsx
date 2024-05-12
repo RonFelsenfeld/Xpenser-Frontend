@@ -63,6 +63,19 @@ export function ExpenseFilter({ filterBy, setFilterBy }) {
 
         <div className="filter-container flex">
           <div className="input-container flex column">
+            <label htmlFor="txt">By title</label>
+            <input
+              type="text"
+              name="txt"
+              id="txt"
+              onChange={handleChange}
+              value={filterBy.title}
+              placeholder="title"
+              autoComplete="off"
+            />
+          </div>
+
+          <div className="input-container flex column">
             <p htmlFor="at">By a specific date or range</p>
 
             <button className="btn-open-picker" onClick={toggleIsDatePickerOpen}>

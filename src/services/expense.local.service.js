@@ -67,15 +67,19 @@ function getExpenseCategories() {
 }
 
 function getDefaultFilterBy() {
-  return { at: null, category: '' }
+  return { txt: '', at: null, category: '' }
 }
 
-function _filterExpenses(expenses, { at, category }) {
+function _filterExpenses(expenses, { txt, at, category }) {
   let expensesToReturn = expenses.slice()
+
+  if (txt) {
+    const regExp = new RegExp(txt, 'i')
+    expensesToReturn = expensesToReturn.filter(e => regExp.test(e.txt))
+  }
 
   if (at) {
     const { from, to } = at
-
     expensesToReturn = expensesToReturn.filter(e => e.at >= from && e.at <= to)
   }
 

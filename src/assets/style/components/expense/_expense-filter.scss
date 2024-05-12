@@ -24,12 +24,15 @@
           font-size: em(16px);
         }
 
+        input,
         select {
           padding-block: 4px;
         }
 
         .btn-open-picker {
           padding-block: 5px;
+          border: 1px solid $picker-btn-border-clr;
+          background-color: transparent;
         }
 
         .date-picker-container {
