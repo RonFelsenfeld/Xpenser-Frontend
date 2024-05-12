@@ -6,7 +6,7 @@ import { utilService } from '../../services/util.service'
 
 ChartJS.register(ArcElement, Tooltip, Legend)
 
-export function PieChart({ expenses }) {
+export function PieChart({ title, expenses }) {
   const expensesPerCategoryMap = expenseService.getCategoriesMap(expenses)
 
   // ! Making sure that the arrays are orderly sync
@@ -31,20 +31,25 @@ export function PieChart({ expenses }) {
 
   const options = {
     responsive: true,
-    maintainAspectRatio: false,
+    maintainAspectRatio: true,
     plugins: {
       legend: {
         display: true,
         labels: {
-          padding: 20,
+          padding: 35,
           color: 'rgb(50, 51, 56)',
           font: {
-            size: 18,
+            size: 14,
           },
         },
       },
     },
   }
 
-  return <Pie data={data} options={options} />
+  return (
+    <div className="pie-chart">
+      <h3 className="chart-title">{title}</h3>
+      <Pie data={data} options={options} />
+    </div>
+  )
 }

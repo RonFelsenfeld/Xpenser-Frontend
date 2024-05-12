@@ -59,7 +59,11 @@ export function LoginSignup() {
   return (
     <section className="login-page flex column align-center justify-center">
       <header className="login-header flex column align-center ">
-        <h1 className="main-heading">Welcome to Xpenser</h1>
+        <div className="title-container flex align-center">
+          <img src="/assets/img/loader-coin.png" alt="Green coin" className="login-img" />
+          <h1 className="main-heading">Welcome to Xpenser</h1>
+        </div>
+
         <h3 className="secondary-heading">
           The ultimate expense tracker for those who want to control their money.
         </h3>

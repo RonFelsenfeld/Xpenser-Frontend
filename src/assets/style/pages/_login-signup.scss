@@ -5,25 +5,55 @@
   .login-header {
     line-height: 1.5;
     margin-block-end: 20px;
+    padding-inline: 10px;
 
-    .main-heading {
-      font-family: FigtreeBold;
-      font-size: em(40px);
-      margin-block-end: 10px;
+    .title-container {
+      gap: em(10px);
+
+      .main-heading {
+        font-family: FigtreeBold;
+        font-size: em(40px);
+
+        @include for-small-layout {
+          font-size: em(32px);
+        }
+
+        @include for-mobile-layout {
+          font-size: em(24px);
+        }
+      }
     }
 
     .secondary-heading {
       font-family: FigtreeRegular;
+      font-weight: normal;
       font-size: em(18px);
+      text-align: center;
+
+      @include for-small-layout {
+        font-size: em(16px);
+      }
+
+      @include for-mobile-layout {
+        font-size: em(14px);
+      }
     }
   }
 
   form {
     gap: 10px;
+    width: 600px;
+
+    @include for-small-layout {
+      width: 400px;
+    }
+
+    @include for-mobile-layout {
+      width: 300px;
+    }
 
     .input-container {
       gap: 3px;
-      width: 30vw;
       font-size: em(16px);
 
       input {

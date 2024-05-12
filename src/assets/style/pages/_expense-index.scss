@@ -3,8 +3,13 @@
   overflow: hidden;
 
   display: grid;
+  // grid-template-columns: 1fr minmax(auto, 33vw);
   grid-template-columns: 2fr 1fr;
   column-gap: 30px;
+
+  @include for-normal-layout {
+    grid-template-columns: 1fr auto;
+  }
 
   .expenses-container {
     overflow-y: scroll;

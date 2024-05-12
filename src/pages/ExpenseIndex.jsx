@@ -117,7 +117,11 @@ export function ExpenseIndex() {
       </div>
 
       <div className="chart-container">
-        {isExistDataForChart() ? <PieChart expenses={expenses} /> : <ChartReplacement />}
+        {isExistDataForChart() ? (
+          <PieChart title="Expenses Per Category" expenses={expenses} />
+        ) : (
+          <ChartReplacement />
+        )}
       </div>
 
       <Outlet context={[setExpenses]} />

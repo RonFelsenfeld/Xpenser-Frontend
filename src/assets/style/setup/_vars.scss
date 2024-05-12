@@ -21,7 +21,7 @@ $picker-btn-border-clr: rgb(118, 118, 118);
   --category-transport-clr: rgb(234, 252, 119);
   --category-entertainment-clr: rgb(195, 248, 115);
   --category-utilities-clr: rgb(251, 175, 128);
-  --category-savings-clr: rgb(123, 255, 251);
+  --category-savings-clr: rgb(246, 121, 121);
   --category-other-clr: rgb(118, 190, 250);
 }
 
@@ -35,6 +35,6 @@ $cmp-br: 16px;
 
 // MQ
 $break-mobile: 450px;
-$break-small: 600px;
-$break-narrow: 750px;
-$break-normal: 1000px;
+$break-small: 650px;
+// $break-narrow: 750px;
+$break-normal: 1050px;
