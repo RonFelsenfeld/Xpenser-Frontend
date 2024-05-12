@@ -47,10 +47,14 @@ export function ExpenseEdit() {
   }
 
   function handleDatePick(newDate) {
-    if (!newDate) return
+    // ! On first render --> new Date is null (when expense has no date it's undefined)
+    if (newDate === null) return
+
+    const updatedDate = newDate ? new Date(newDate).getTime() : ''
+
     setExpenseToEdit(prevExpenseToEdit => ({
       ...prevExpenseToEdit,
-      at: new Date(newDate).getTime(),
+      at: updatedDate,
     }))
   }
 
@@ -139,7 +143,10 @@ export function ExpenseEdit() {
             </p>
 
             <div className="date-picker-container flex justify-center">
-              <DatePicker selected={new Date(expenseToEdit.at)} setSelected={handleDatePick} />
+              <DatePicker
+                selected={new Date(expenseToEdit.at) || ''}
+                setSelected={handleDatePick}
+              />
             </div>
 
             <div className="input-container flex column">
