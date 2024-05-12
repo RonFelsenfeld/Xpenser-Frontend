@@ -19,7 +19,7 @@ export function DatePicker({ selected, setSelected, isRange = false }) {
       <DayPicker
         mode={isRange ? 'range' : 'single'}
         onSelect={isRange ? setRange : setSelected}
-        selected={isRange ? range : new Date(selected)}
+        selected={isRange ? range : selected}
         showOutsideDays
         style={{
           fontSize: '14px',
