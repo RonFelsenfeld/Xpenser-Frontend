@@ -47,6 +47,10 @@ export function ExpenseIndex() {
     }
   }
 
+  function onSetFilterBy(filterBy) {
+    setFilterBy(filterBy)
+  }
+
   if (!expenses) return <Loader />
   return (
     <section className="expense-index">
@@ -59,7 +63,7 @@ export function ExpenseIndex() {
             ></button>
           </Link>
 
-          <ExpenseFilter filterBy={filterBy} setFilterBy={setFilterBy} />
+          <ExpenseFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy} />
         </header>
 
         {expenses && expenses.length ? (

@@ -1,19 +1,27 @@
-import { useRef, useState } from 'react'
+import { memo, useEffect, useRef, useState } from 'react'
 import { DatePicker } from '../general/DatePicker'
 
 import { expenseService } from '../../services/expense.service'
+import { utilService } from '../../services/util.service'
+
 import { useClickOutside } from '../../customHooks/useClickOutside'
 
-export function ExpenseFilter({ filterBy, setFilterBy }) {
+export const ExpenseFilter = memo(({ filterBy, onSetFilterBy }) => {
+  const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false)
+  const debounceOnSetFilter = useRef(utilService.debounce(onSetFilterBy, 300))
   const datePickerRef = useRef()
 
   useClickOutside(datePickerRef, () => setIsDatePickerOpen(false))
 
+  useEffect(() => {
+    debounceOnSetFilter.current(filterByToEdit)
+  }, [filterByToEdit])
+
   function handleChange({ target }) {
     let { value, name: field } = target
 
-    setFilterBy(prevFilterBy => ({
+    setFilterByToEdit(prevFilterBy => ({
       ...prevFilterBy,
       [field]: value,
     }))
@@ -21,7 +29,7 @@ export function ExpenseFilter({ filterBy, setFilterBy }) {
 
   function handleDatePick(dateRange) {
     if (!dateRange)
-      return setFilterBy(prevFilterBy => ({
+      return setFilterByToEdit(prevFilterBy => ({
         ...prevFilterBy,
         at: null,
       }))
@@ -32,7 +40,7 @@ export function ExpenseFilter({ filterBy, setFilterBy }) {
     const startDate = new Date(from).getTime()
     const endDate = new Date(to).getTime()
 
-    setFilterBy(prevFilterBy => ({
+    setFilterByToEdit(prevFilterBy => ({
       ...prevFilterBy,
       at: { from: startDate, to: endDate },
     }))
@@ -40,7 +48,7 @@ export function ExpenseFilter({ filterBy, setFilterBy }) {
 
   function onClearFilter() {
     const defaultFilter = expenseService.getDefaultFilterBy()
-    setFilterBy({ ...defaultFilter })
+    setFilterByToEdit({ ...defaultFilter })
   }
 
   function toggleIsDatePickerOpen() {
@@ -79,7 +87,7 @@ export function ExpenseFilter({ filterBy, setFilterBy }) {
               id="txt"
               className={getFilteringByCriteriaClass('txt')}
               onChange={handleChange}
-              value={filterBy.txt}
+              value={filterByToEdit.txt}
               placeholder="title"
               autoComplete="off"
             />
@@ -100,7 +108,11 @@ export function ExpenseFilter({ filterBy, setFilterBy }) {
                 ref={datePickerRef}
                 className="date-picker-container animate__animated animate__flipInX"
               >
-                <DatePicker selected={filterBy.at} setSelected={handleDatePick} isRange={true} />
+                <DatePicker
+                  selected={filterByToEdit.at}
+                  setSelected={handleDatePick}
+                  isRange={true}
+                />
               </div>
             )}
           </div>
@@ -112,7 +124,7 @@ export function ExpenseFilter({ filterBy, setFilterBy }) {
               id="category"
               onChange={handleChange}
               className={getFilteringByCriteriaClass('category')}
-              value={filterBy.category}
+              value={filterByToEdit.category}
             >
               <option value="">All</option>
 
@@ -133,4 +145,4 @@ export function ExpenseFilter({ filterBy, setFilterBy }) {
       </fieldset>
     </section>
   )
-}
+})
