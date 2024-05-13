@@ -10,7 +10,7 @@
     opacity: 0;
     pointer-events: none;
 
-    @include for-normal-layout {
+    @include for-narrow-layout {
       opacity: 1;
       pointer-events: auto;
     }

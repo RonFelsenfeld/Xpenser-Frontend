@@ -6,7 +6,7 @@
   grid-template-columns: 2fr 1fr;
   column-gap: 30px;
 
-  @include for-normal-layout {
+  @include for-narrow-layout {
     grid-template-columns: 1fr;
 
     &.statistics-open {
@@ -31,7 +31,7 @@
     @include hideScrollBar;
     overflow-y: scroll;
 
-    padding: em(20px) em(40px);
+    padding: em(20px) em(30px);
     border-top-right-radius: $cmp-br;
     background-color: $main-bg-clr;
 
@@ -49,6 +49,10 @@
         gap: 8px;
         font-size: 1.6em;
 
+        @include for-mobile-layout {
+          flex-direction: column;
+        }
+
         span {
           font-size: 2rem;
           font-family: FigtreeBold;
@@ -57,6 +61,10 @@
 
       .btn-container {
         gap: em(20px);
+
+        @include for-mobile-layout {
+          gap: em(10px);
+        }
 
         a {
           display: inline-block;
@@ -102,7 +110,7 @@
             color: darken($main-theme-clr, 10%);
           }
 
-          @include for-normal-layout {
+          @include for-narrow-layout {
             opacity: 1;
             pointer-events: auto;
           }
@@ -111,7 +119,8 @@
     }
 
     .no-expenses {
-      font-size: em(16px);
+      font-size: em(24px);
+      padding-inline-start: 3px;
     }
   }
 
@@ -126,7 +135,7 @@
     border-top-left-radius: $cmp-br;
     background-color: $main-bg-clr;
 
-    @include for-normal-layout {
+    @include for-narrow-layout {
       position: fixed;
       top: $app-header-height;
       right: 0;
@@ -142,6 +151,11 @@
       &.open {
         transform: translateX(0);
       }
+    }
+
+    @include for-small-layout {
+      width: 100vw;
+      box-shadow: none;
     }
   }
 }

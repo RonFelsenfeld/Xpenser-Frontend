@@ -1,6 +1,6 @@
 .app-header {
   height: $app-header-height;
-  padding-inline: em(16px);
+  padding-inline: em(30px);
 
   .title-container {
     gap: em(10px);
@@ -12,10 +12,14 @@
   }
 
   .user-container {
-    gap: em(10px);
+    gap: em(20px);
 
     .user-greet {
       font-size: 1.6rem;
+
+      @include for-mobile-layout {
+        display: none;
+      }
     }
   }
 

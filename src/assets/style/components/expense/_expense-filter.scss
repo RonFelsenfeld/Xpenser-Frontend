@@ -1,4 +1,6 @@
 .expense-filter {
+  position: relative;
+
   .filter-fieldset {
     align-items: end;
 
@@ -9,6 +11,7 @@
     margin-block-end: em(20px);
 
     legend {
+      padding-inline: 10px;
       font-size: em(22px);
       font-family: FigtreeMedium;
     }
@@ -21,9 +24,33 @@
         flex-grow: 1;
       }
 
+      @include for-small-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: repeat(2, auto);
+        grid-template-areas:
+          'title title'
+          'date category';
+      }
+
+      margin-block-start: 1rem;
+
       .input-container {
         position: relative;
         gap: em(5px);
+
+        @include for-small-layout {
+          &.title {
+            grid-area: title;
+          }
+
+          &.date {
+            grid-area: date;
+          }
+          &.category {
+            grid-area: category;
+          }
+        }
 
         label,
         p {
@@ -64,6 +91,12 @@
       &::after {
         font-family: faSolid;
         content: '\f00d';
+      }
+
+      @include for-small-layout {
+        position: absolute;
+        top: 22px;
+        right: 10px;
       }
     }
   }

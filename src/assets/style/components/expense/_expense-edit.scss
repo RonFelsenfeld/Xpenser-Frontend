@@ -11,6 +11,10 @@
   box-shadow: $main-box-shadow;
   z-index: 1;
 
+  @include for-small-layout {
+    width: 100vw;
+  }
+
   .btn-back {
     @include scalableBtn;
     background-color: transparent;

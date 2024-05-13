@@ -1,11 +1,5 @@
-// @mixin for-narrow-layout {
-//   @media (max-width: $break-narrow) {
-//     @content;
-//   }
-// }
-
-@mixin for-normal-layout {
-  @media (max-width: $break-normal) {
+@mixin for-narrow-layout {
+  @media (max-width: $break-narrow) {
     @content;
   }
 }
@@ -63,7 +57,7 @@
     font-family: FigtreeMedium;
     margin-block-end: $margin-bottom;
 
-    @include for-normal-layout {
+    @include for-narrow-layout {
       font-size: em(20px);
     }
   }

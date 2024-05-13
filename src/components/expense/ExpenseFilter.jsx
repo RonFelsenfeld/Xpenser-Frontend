@@ -79,7 +79,7 @@ export const ExpenseFilter = memo(({ filterBy, onSetFilterBy }) => {
         <legend>Filter your expenses</legend>
 
         <div className="filter-container flex">
-          <div className="input-container flex column">
+          <div className="input-container title flex column">
             <label htmlFor="txt">By title</label>
             <input
               type="text"
@@ -93,8 +93,8 @@ export const ExpenseFilter = memo(({ filterBy, onSetFilterBy }) => {
             />
           </div>
 
-          <div className="input-container flex column">
-            <p htmlFor="at">By a specific date or range</p>
+          <div className="input-container date flex column">
+            <p htmlFor="at">By date (or range)</p>
 
             <button
               className={`btn-open-picker ${getFilteringByCriteriaClass('at')}`}
@@ -117,7 +117,7 @@ export const ExpenseFilter = memo(({ filterBy, onSetFilterBy }) => {
             )}
           </div>
 
-          <div className="input-container flex column">
+          <div className="input-container category flex column">
             <label htmlFor="category">By category</label>
             <select
               name="category"
