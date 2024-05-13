@@ -53,12 +53,35 @@
     }
 
     .input-container {
+      position: relative;
       gap: 3px;
       font-size: em(16px);
 
       input {
         border: 1px solid $secondary-font-clr;
         padding: 10px 5px;
+      }
+
+      .btn-toggle-password {
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        background-color: transparent;
+
+        &::after {
+          font-family: faSolid;
+          content: '\f06e';
+
+          font-size: 1.4em;
+          color: $main-font-clr;
+          transition: color 0.2s;
+        }
+
+        &.active {
+          &::after {
+            color: $main-theme-clr;
+          }
+        }
       }
     }
 

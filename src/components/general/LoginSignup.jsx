@@ -8,6 +8,7 @@ import { UserContext } from '../../contexts/UserContext'
 
 export function LoginSignup() {
   const [isSignup, setIsSignup] = useState(false)
+  const [isShowPassword, setIsShowPassword] = useState(false)
   const [credentials, setCredentials] = useState(userService.getEmptyCredentials())
 
   const { setUser } = useContext(UserContext)
@@ -82,13 +83,14 @@ export function LoginSignup() {
             onChange={handleChange}
             required
             autoComplete="off"
+            maxLength={20}
           />
         </div>
 
         <div className="input-container flex column">
           <label htmlFor="password">Enter password</label>
           <input
-            type="text"
+            type={isShowPassword ? 'text' : 'password'}
             placeholder="password"
             name="password"
             id="password"
@@ -96,7 +98,14 @@ export function LoginSignup() {
             onChange={handleChange}
             required
             autoComplete="off"
+            maxLength={30}
           />
+
+          <button
+            type="button"
+            className={`btn-toggle-password ${isShowPassword ? 'active' : ''}`}
+            onClick={() => setIsShowPassword(prevIsShow => !prevIsShow)}
+          ></button>
         </div>
 
         <button className="btn-submit">{isSignup ? 'Sign up' : 'Login'}</button>
