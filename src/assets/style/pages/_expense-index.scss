@@ -31,7 +31,8 @@
     @include hideScrollBar;
     overflow-y: scroll;
 
-    padding: em(20px) em(30px);
+    padding: 0 em(30px) em(20px) em(30px);
+    border-block-start: em(20px) solid $main-bg-clr;
     border-top-right-radius: $cmp-br;
     background-color: $main-bg-clr;
 
