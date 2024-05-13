@@ -2,7 +2,9 @@
 
 ## Xpenser Description
 Xpenser is a user-friendly tool designed to help individuals easily manage and track their expenses.
-With intuitive features and a clean interface, users can effortlessly record their transactions and categorize their expenses.
+With intuitive features and a clean interface, users can effortlessly record their transactions and categorize their expenses.<br>
+**This is the frontend repository of Xpenser, backend is right [here](https://github.com/RonFelsenfeld/Xpenser-Backend).**
+
 
 ## Main Features
 > * **Expense Tracking:** Effortlessly track expenses in real time. Record transactions with details such as amount, category, notes and date to maintain a comprehensive overview of your finances.
