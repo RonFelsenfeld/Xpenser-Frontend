@@ -10,7 +10,7 @@ With intuitive features and a clean interface, users can effortlessly record the
 > * **Real-Time Updates:** Receive immediate notifications and updates on expenses as they occur. When a new expense is added, removed, updated or edited, all connected clients are notified in real time without the need to refresh the page.
 
 ## Showcase
-<img src="https://res.cloudinary.com/df6vvhhoj/image/upload/v1715601055/Screenshot_2024-05-13_at_14.49.08_ng00br.png">
+<img src="https://res.cloudinary.com/df6vvhhoj/image/upload/v1715604737/xpenser-readme_lxnww1.gif" width="500">
 
 ## Technologies
 * ReactJS
