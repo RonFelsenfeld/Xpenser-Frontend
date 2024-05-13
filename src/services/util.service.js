@@ -7,6 +7,8 @@ export const utilService = {
   capitalize,
   getLastFourMonths,
   getFormattedCurrency,
+  greetBasedOnHour,
+  animateCSS,
 }
 
 function makeId(length = 6) {
@@ -91,4 +93,33 @@ function getFormattedCurrency(amount) {
   }).format(amount)
 
   return formattedAmount
+}
+
+function greetBasedOnHour() {
+  const currentHour = new Date().getHours()
+
+  if (currentHour >= 6 && currentHour < 12) {
+    return 'Good morning'
+  } else if (currentHour >= 12 && currentHour < 18) {
+    return 'Good afternoon'
+  } else if (currentHour >= 18 && currentHour < 22) {
+    return 'Good evening'
+  } else {
+    return 'Good night'
+  }
+}
+
+function animateCSS(el, animation = 'bounce') {
+  const prefix = 'animate__'
+  return new Promise(resolve => {
+    const animationName = `${prefix}${animation}`
+    el.classList.add(`${prefix}animated`, animationName)
+
+    el.addEventListener('animationend', handleAnimationEnd, { once: true })
+
+    function handleAnimationEnd(event) {
+      event.stopPropagation()
+      resolve('Animation ended')
+    }
+  })
 }

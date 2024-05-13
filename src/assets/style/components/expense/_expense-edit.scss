@@ -8,7 +8,7 @@
   overflow-y: scroll;
 
   background-color: $main-bg-clr;
-  box-shadow: -5px 2px 13px 0px rgba(92, 92, 92, 0.267);
+  box-shadow: $main-box-shadow;
   z-index: 1;
 
   .btn-back {

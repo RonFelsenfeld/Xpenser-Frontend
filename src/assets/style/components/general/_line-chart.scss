@@ -1,4 +1,8 @@
 .line-chart {
   @include chartContainer(40px);
   padding-block-end: em(40px);
+
+  @include for-normal-layout {
+    padding-block-end: em(80px);
+  }
 }

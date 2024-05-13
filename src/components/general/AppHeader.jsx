@@ -5,6 +5,7 @@ import { socketService } from '../../services/socket.service'
 import { showErrorMsg, showSuccessMsg } from '../../services/event-bus.service'
 import { userService } from '../../services/user.service'
 import { UserContext } from '../../contexts/UserContext'
+import { utilService } from '../../services/util.service'
 
 export function AppHeader() {
   const { user, setUser } = useContext(UserContext)
@@ -36,7 +37,9 @@ export function AppHeader() {
 
       {user && (
         <div className="user-container flex align-center">
-          <span className="user-greet">Hello, {user.username}</span>
+          <span className="user-greet">
+            {utilService.greetBasedOnHour()}, {user.username}
+          </span>
           <button className="btn-logout" onClick={handleLogout}>
             Logout
           </button>

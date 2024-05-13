@@ -62,5 +62,9 @@
     font-size: em(24px);
     font-family: FigtreeMedium;
     margin-block-end: $margin-bottom;
+
+    @include for-normal-layout {
+      font-size: em(20px);
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 
 import { expenseService } from '../services/expense.service'
@@ -24,13 +24,19 @@ import { Statistics } from '../components/general/Statistics'
 export function ExpenseIndex() {
   const [expenses, setExpenses] = useState(null)
   const [filterBy, setFilterBy] = useState(expenseService.getDefaultFilterBy())
+  const [isStatisticsOpen, setIsStatisticOpen] = useState(window.innerWidth > 1000)
 
+  const debounceResize = useRef(utilService.debounce(handleResize, 100))
+  const statisticsRef = useRef()
   const { user } = useContext(UserContext)
   const navigate = useNavigate()
 
   useEffect(() => {
     // ! Blocking un-authorized entrance
     if (!user) navigate('/')
+
+    window.addEventListener('resize', debounceResize.current)
+
     socketService.emit(SOCKET_EMIT_SET_USER, user)
 
     socketService.on(SOCKET_EVENT_EXPENSE_ADDED, expense => {
@@ -50,6 +56,7 @@ export function ExpenseIndex() {
     })
 
     return () => {
+      window.removeEventListener('resize', debounceResize.current)
       socketService.off(SOCKET_EVENT_EXPENSE_ADDED)
       socketService.off(SOCKET_EVENT_EXPENSE_REMOVED)
       socketService.off(SOCKET_EVENT_EXPENSE_UPDATED)
@@ -93,18 +100,49 @@ export function ExpenseIndex() {
     return utilService.getFormattedCurrency(totalExpenses)
   }
 
+  function handleResize() {
+    setIsStatisticOpen(window.innerWidth > 1000)
+  }
+
+  function onCloseStatistic() {
+    utilService.animateCSS(statisticsRef.current, 'slideOutRight')
+
+    setTimeout(() => {
+      setIsStatisticOpen(false)
+    }, 600)
+  }
+
+  function getOpenClass() {
+    if (isStatisticsOpen) return 'open animate__animated animate__slideInRight animate__faster'
+
+    return ''
+  }
+
   if (!expenses) return <Loader />
   return (
-    <section className="expense-index">
+    <section className={`expense-index ${isStatisticsOpen ? 'statistics-open' : ''}`}>
+      <div className="animate__animated animate__fadeIn animate__faster backdrop"></div>
+
       <div className="expenses-container">
         <header className="expenses-header">
           <div className="total-container flex align-center justify-between">
-            <Link to="/expense/edit">
+            <div className="btn-container flex">
+              <Link to="/expense/edit">
+                <button
+                  className="btn-add-expense flex align-center justify-center"
+                  title="Add New Expense"
+                ></button>
+              </Link>
+
               <button
-                className="btn-add-expense flex align-center justify-center"
-                title="Add New Expense"
-              ></button>
-            </Link>
+                className="btn-statistics flex align-center justify-center"
+                title="Show Statistics"
+                onClick={() => setIsStatisticOpen(true)}
+              >
+                Show Statistics
+              </button>
+            </div>
+
             <p className="total-expenses flex align-center">
               Total expenses: <span>{getTotalExpenses()}</span>
             </p>
@@ -120,9 +158,11 @@ export function ExpenseIndex() {
         )}
       </div>
 
-      <div className="statistics-container">
-        <Statistics expenses={expenses} />
-      </div>
+      {isStatisticsOpen && (
+        <div ref={statisticsRef} className={`statistics-container  ${getOpenClass()}`}>
+          <Statistics expenses={expenses} onCloseStatistic={onCloseStatistic} />
+        </div>
+      )}
 
       <Outlet context={[setExpenses]} />
     </section>

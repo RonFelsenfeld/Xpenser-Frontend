@@ -36,7 +36,7 @@ export function PieChart({ title, expenses }) {
       legend: {
         display: true,
         labels: {
-          padding: 35,
+          padding: 20,
           color: 'rgb(50, 51, 56)',
           font: {
             size: 14,

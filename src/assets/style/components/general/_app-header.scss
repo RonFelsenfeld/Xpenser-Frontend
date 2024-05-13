@@ -25,5 +25,11 @@
 
     border-radius: $el-br;
     font-family: FigtreeBold;
+
+    &::before {
+      font-family: faSolid;
+      content: '\f52b';
+      margin-inline-end: 8px;
+    }
   }
 }

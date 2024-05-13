@@ -3,12 +3,28 @@
   overflow: hidden;
 
   display: grid;
-  // grid-template-columns: 1fr minmax(auto, 33vw);
   grid-template-columns: 2fr 1fr;
   column-gap: 30px;
 
   @include for-normal-layout {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr;
+
+    &.statistics-open {
+      .backdrop {
+        display: block;
+        position: fixed;
+        width: 100vw;
+        height: 100dvh;
+
+        background-color: rgba(41, 41, 41, 0.725);
+        backdrop-filter: blur(1px);
+        z-index: 2;
+      }
+    }
+  }
+
+  .backdrop {
+    display: none;
   }
 
   .expenses-container {
@@ -39,30 +55,56 @@
         }
       }
 
-      a {
-        display: inline-block;
-        width: fit-content;
+      .btn-container {
+        gap: em(20px);
 
-        .btn-add-expense {
+        a {
+          display: inline-block;
+          width: fit-content;
+
+          .btn-add-expense {
+            @include scalableBtn;
+            @include btnTheme(14px, 14px);
+
+            border-radius: $el-br;
+
+            font-size: 1.6em;
+            transition: background-color 0.3s;
+
+            &:hover {
+              background-color: darken($main-theme-clr, 10%);
+            }
+
+            &::after {
+              font-family: faSolid;
+              content: '\2b';
+            }
+
+            &:disabled {
+              @include disabledBtn;
+            }
+          }
+        }
+
+        .btn-statistics {
           @include scalableBtn;
-          @include btnTheme(14px, 14px);
-
           border-radius: $el-br;
 
           font-size: 1.6em;
+          color: $main-theme-clr;
+          background-color: transparent;
+
+          opacity: 0;
+          pointer-events: none;
           transition: background-color 0.3s;
 
           &:hover {
-            background-color: darken($main-theme-clr, 10%);
+            color: darken($main-theme-clr, 10%);
           }
 
-          &::after {
-            font-family: faSolid;
-            content: '\2b';
-          }
-
-          &:disabled {
-            @include disabledBtn;
+          @include for-normal-layout {
+            opacity: 1;
+            pointer-events: auto;
           }
         }
       }
@@ -78,9 +120,28 @@
 
     height: 100%;
     overflow-y: scroll;
+    position: relative;
 
-    padding: em(20px) em(40px);
+    padding: em(20px) em(32px);
     border-top-left-radius: $cmp-br;
     background-color: $main-bg-clr;
+
+    @include for-normal-layout {
+      position: fixed;
+      top: $app-header-height;
+      right: 0;
+
+      width: 70vw;
+      border-radius: 0;
+
+      box-shadow: $main-box-shadow;
+      transition: transform 1s;
+      transform: translateX(100%);
+      z-index: 10;
+
+      &.open {
+        transform: translateX(0);
+      }
+    }
   }
 }
