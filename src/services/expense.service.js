@@ -18,14 +18,7 @@ export const expenseService = {
 }
 
 async function query(filterBy = {}) {
-  let expenses = await httpService.get(BASE_URL)
-
-  // ! Checking for filter criteria
-  const filterByValues = Object.values(filterBy)
-  if (filterByValues.some(val => val)) {
-    expenses = _filterExpenses(expenses, filterBy)
-  }
-
+  const expenses = await httpService.get(BASE_URL, { filterBy })
   return expenses
 }
 
@@ -63,26 +56,6 @@ function getExpenseCategories() {
 
 function getDefaultFilterBy() {
   return { txt: '', at: null, category: '' }
-}
-
-function _filterExpenses(expenses, { txt, at, category }) {
-  let expensesToReturn = expenses.slice()
-
-  if (txt) {
-    const regExp = new RegExp(txt, 'i')
-    expensesToReturn = expensesToReturn.filter(e => regExp.test(e.txt))
-  }
-
-  if (at) {
-    const { from, to } = at
-    expensesToReturn = expensesToReturn.filter(e => e.at >= from && e.at <= to)
-  }
-
-  if (category) {
-    expensesToReturn = expensesToReturn.filter(e => e.category === category)
-  }
-
-  return expensesToReturn
 }
 
 function getCategoriesMap(expenses) {
