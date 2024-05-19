@@ -70,11 +70,16 @@ export function ExpenseEdit() {
 
   function onSelectCategory(category) {
     category = category.toLowerCase()
+
     if (category !== expenseToEdit.category) {
       setExpenseToEdit(prevExpenseToEdit => ({ ...prevExpenseToEdit, category }))
     } else {
       setExpenseToEdit(prevExpenseToEdit => ({ ...prevExpenseToEdit, category: '' }))
     }
+
+    // ! Better solution
+    // const categoryToSave = category !== expenseToEdit.category ? category : ''
+    // setExpenseToEdit(prevExpenseToEdit => ({ ...prevExpenseToEdit, category: categoryToSave }))
   }
 
   async function onSaveExpense(ev) {
@@ -91,8 +96,8 @@ export function ExpenseEdit() {
       })
 
       const socketType = expenseId ? SOCKET_EMIT_UPDATE_EXPENSE : SOCKET_EMIT_ADD_EXPENSE
-
       socketService.emit(socketType, savedExpense)
+
       showSuccessMsg('Expense saved!')
       navigate('/expense')
     } catch (err) {

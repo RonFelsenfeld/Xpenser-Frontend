@@ -4,8 +4,9 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { socketService } from '../../services/socket.service'
 import { showErrorMsg, showSuccessMsg } from '../../services/event-bus.service'
 import { userService } from '../../services/user.service'
-import { UserContext } from '../../contexts/UserContext'
 import { utilService } from '../../services/util.service'
+
+import { UserContext } from '../../contexts/UserContext'
 
 export function AppHeader() {
   const { user, setUser } = useContext(UserContext)
@@ -26,7 +27,7 @@ export function AppHeader() {
     }
   }
 
-  const { pathname } = location
+  // const { pathname } = location
 
   return (
     <header className="app-header flex align-center justify-between">
@@ -48,7 +49,7 @@ export function AppHeader() {
 
       {/* // ! Checking if in signup page -> If so, hide button in app header
        */}
-      {!user && pathname !== '/' && <button className="btn-logout">Login</button>}
+      {/* {!user && pathname !== '/' && <button className="btn-logout">Login</button>} */}
     </header>
   )
 }

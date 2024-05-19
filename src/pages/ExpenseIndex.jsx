@@ -28,6 +28,7 @@ export function ExpenseIndex() {
 
   const debounceResize = useRef(utilService.debounce(handleResize, 100))
   const statisticsRef = useRef()
+
   const { user } = useContext(UserContext)
   const navigate = useNavigate()
 

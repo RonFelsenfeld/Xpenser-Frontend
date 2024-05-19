@@ -87,7 +87,7 @@ function getExpensesPerMonthMap(expenses) {
     if (!at) return
 
     const month = new Date(at).toLocaleDateString('en-GB', { month: 'long' })
-    if (lastFourMonthsMap[month] === undefined) return
+    if (lastFourMonthsMap[month] === undefined) return // ? What's for?
 
     lastFourMonthsMap[month] += amount
   })

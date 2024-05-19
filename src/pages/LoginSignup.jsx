@@ -1,10 +1,10 @@
 import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { socketService } from '../../services/socket.service'
-import { userService } from '../../services/user.service'
-import { showErrorMsg, showSuccessMsg } from '../../services/event-bus.service'
-import { UserContext } from '../../contexts/UserContext'
+import { socketService } from '../services/socket.service'
+import { userService } from '../services/user.service'
+import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service'
+import { UserContext } from '../contexts/UserContext'
 
 export function LoginSignup() {
   const [isSignup, setIsSignup] = useState(false)

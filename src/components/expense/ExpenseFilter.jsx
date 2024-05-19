@@ -9,6 +9,7 @@ import { useClickOutside } from '../../customHooks/useClickOutside'
 export const ExpenseFilter = memo(({ filterBy, onSetFilterBy }) => {
   const [filterByToEdit, setFilterByToEdit] = useState(filterBy)
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false)
+
   const debounceOnSetFilter = useRef(utilService.debounce(onSetFilterBy, 300))
   const datePickerRef = useRef()
 
